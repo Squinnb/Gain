@@ -1,0 +1,44 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level-01.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "gain.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level-01.tmx": {
+            "scale": 0.9919,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 333.19891118056256,
+                "y": 107.36969452565785
+            }
+        }
+    },
+    "last.imagePath": "/Users/squinnb/Desktop/gain/assets/images/Terrain",
+    "map.height": 23,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 40,
+    "openFiles": [
+        "gain.tsx",
+        "level-01.tmx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "gain.tsx",
+        "level-01.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
