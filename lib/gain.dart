@@ -20,8 +20,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents {
   FutureOr<void> onLoad() async {
     await images.loadAllImages(); // into cache
     final wrld = Level(player: player, levelName: "level-01");
-    cam = CameraComponent.withFixedResolution(
-        world: wrld, width: 640, height: 360);
+    cam = CameraComponent.withFixedResolution(world: wrld, width: 640, height: 360);
     cam.viewfinder.anchor = Anchor.topLeft;
     addAll([cam, wrld]);
     addJoystick();
@@ -44,18 +43,16 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents {
   }
 
   void updateJoystick() {
-    if (joystick.direction == JoystickDirection.left ||
-        joystick.direction == JoystickDirection.upLeft ||
-        joystick.direction == JoystickDirection.downLeft) {
-      player.direction = PlayerDirection.left;
+    if (joystick.direction == JoystickDirection.left || joystick.direction == JoystickDirection.upLeft || joystick.direction == JoystickDirection.downLeft) {
+      player.xDirection = -1;
     } else if (joystick.direction == JoystickDirection.right ||
         joystick.direction == JoystickDirection.upRight ||
         joystick.direction == JoystickDirection.downRight) {
-      player.direction = PlayerDirection.right;
+      player.xDirection = 1;
     } else if (joystick.direction == JoystickDirection.idle) {
-      player.direction = PlayerDirection.center;
+      player.xDirection = 0;
     } else {
-      player.direction = PlayerDirection.center;
+      player.xDirection = 0;
     }
   }
 }
