@@ -15,7 +15,7 @@ class Level extends World {
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load("$levelName.tmx", Vector2.all(16));
     add(level);
-    final spawnPointLayer = level.tileMap.getLayer<ObjectGroup>('SpawnPoints');
+    final spawnPointLayer = level.tileMap.getLayer<ObjectGroup>('SpawnPoints'); // rn this is only one item loop unneccessary
 
     if (spawnPointLayer != null) {
       for (final spawnPoint in spawnPointLayer.objects) {
@@ -30,10 +30,7 @@ class Level extends World {
     if (collisionLayer != null) {
       for (final collision in collisionLayer.objects) {
         if (collision.class_ == "Platform") {
-          final platform = CollisionBlock(
-              position: Vector2(collision.x, collision.y),
-              size: Vector2(collision.width, collision.height),
-              isPlatform: true);
+          final platform = CollisionBlock(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPlatform: true);
           collisionBlocks.add(platform);
           add(platform);
         } else {

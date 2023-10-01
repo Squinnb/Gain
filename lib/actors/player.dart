@@ -8,25 +8,23 @@ import 'package:gain/levels/collision_block.dart';
 
 enum PlayerState { idle, running }
 
-class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<Gain>, KeyboardHandler {
-  late final SpriteAnimation idleAnime;
-  late final SpriteAnimation runningAnime;
+class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler {
   String character;
   Player({pos, this.character = "Ninja Frog"}) : super(position: pos);
 
   final double stepTime = 0.05;
-
   final double _gravity = 9.8;
-  final double _jumpForce = 460;
+  final double _jumpForce = 360;
   final double _terminalVelocity = 300;
   bool isOnGround = true;
   bool hasJumped = false;
-  double xMovement = 0.0;
+  double xDirection = 0.0;
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero(); // if y > 0 = falling, y < 0 = jumping?
   List<CollisionBlock> collisionBlocks = [];
 
+  late final SpriteAnimation idleAnime;
+  late final SpriteAnimation runningAnime;
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
@@ -46,13 +44,11 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    bool leftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) ||
-        keysPressed.contains(LogicalKeyboardKey.arrowLeft);
-    bool rightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) ||
-        keysPressed.contains(LogicalKeyboardKey.arrowRight);
+    bool leftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
+    bool rightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
 
-    xMovement = leftKeyPressed ? -1 : 0;
-    xMovement = rightKeyPressed ? 1 : 0;
+    xDirection = leftKeyPressed ? -1 : 0;
+    xDirection = rightKeyPressed ? 1 : 0;
 
     hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
 
@@ -62,10 +58,7 @@ class Player extends SpriteAnimationGroupComponent
   void _loadAllAnimations() {
     idleAnime = _spriteAnimation("Idle", 11);
     runningAnime = _spriteAnimation("Run", 12);
-    animations = {
-      PlayerState.idle: idleAnime,
-      PlayerState.running: runningAnime
-    };
+    animations = {PlayerState.idle: idleAnime, PlayerState.running: runningAnime};
     current = PlayerState.running;
   }
 
@@ -93,8 +86,7 @@ class Player extends SpriteAnimationGroupComponent
 
   void _updatePlayerMovement(double dt) {
     if (hasJumped && isOnGround) _playerJump(dt);
-
-    velocity.x = xMovement * moveSpeed;
+    velocity.x = xDirection * moveSpeed;
     position.x += (velocity.x * dt);
   }
 
@@ -103,11 +95,11 @@ class Player extends SpriteAnimationGroupComponent
       Rect playerRect = toRect();
       Rect blockRect = block.toRect();
       if (playerRect.overlaps(blockRect)) {
-        if (xMovement < 0) {
+        if (xDirection < 0) {
           velocity.x = 0;
           position.x = blockRect.right + playerRect.width;
           break;
-        } else if (xMovement > 0) {
+        } else if (xDirection > 0) {
           velocity.x = 0;
           position.x = blockRect.left - playerRect.width;
           break;
@@ -134,8 +126,7 @@ class Player extends SpriteAnimationGroupComponent
     for (final block in collisionBlocks) {
       Rect blockRect = block.toRect();
       if (block.isPlatform) {
-        if (playerRect.overlaps(blockRect) &&
-            position.y + playerRect.height < blockRect.height) {
+        if (playerRect.overlaps(blockRect) && position.y + playerRect.height < blockRect.height) {
           if (velocity.y > 0) {
             // falling
             velocity.y = 0;
