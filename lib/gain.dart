@@ -47,15 +47,15 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents {
     if (joystick.direction == JoystickDirection.left ||
         joystick.direction == JoystickDirection.upLeft ||
         joystick.direction == JoystickDirection.downLeft) {
-      player.direction = PlayerDirection.left;
+      player.xMovement = -1;
     } else if (joystick.direction == JoystickDirection.right ||
         joystick.direction == JoystickDirection.upRight ||
         joystick.direction == JoystickDirection.downRight) {
-      player.direction = PlayerDirection.right;
+      player.xMovement = 1;
     } else if (joystick.direction == JoystickDirection.idle) {
-      player.direction = PlayerDirection.center;
+      player.xMovement = 0;
     } else {
-      player.direction = PlayerDirection.center;
+      player.xMovement = 0;
     }
   }
 }
