@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:gain/actors/player.dart';
 import 'package:gain/levels/level.dart';
 
-class Gain extends FlameGame with HasKeyboardHandlerComponents {
+class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection {
   late final CameraComponent cam;
   Player player = Player();
   late JoystickComponent joystick;
@@ -23,36 +23,34 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents {
     cam = CameraComponent.withFixedResolution(world: wrld, width: 640, height: 360);
     cam.viewfinder.anchor = Anchor.topLeft;
     addAll([cam, wrld]);
-    addJoystick();
     return super.onLoad();
   }
 
   @override
   void update(double dt) {
-    updateJoystick();
     super.update(dt);
   }
 
-  void addJoystick() {
-    joystick = JoystickComponent(
-      knob: CircleComponent(radius: 16, paint: BasicPalette.white.paint()),
-      background: CircleComponent(radius: 32, paint: BasicPalette.gray.paint()),
-      margin: const EdgeInsets.only(left: 32, bottom: 32),
-    );
-    add(joystick);
-  }
+  // void addJoystick() {
+  //   joystick = JoystickComponent(
+  //     knob: CircleComponent(radius: 16, paint: BasicPalette.white.paint()),
+  //     background: CircleComponent(radius: 32, paint: BasicPalette.gray.paint()),
+  //     margin: const EdgeInsets.only(left: 32, bottom: 32),
+  //   );
+  //   add(joystick);
+  // }
 
-  void updateJoystick() {
-    if (joystick.direction == JoystickDirection.left || joystick.direction == JoystickDirection.upLeft || joystick.direction == JoystickDirection.downLeft) {
-      player.xDirection = -1;
-    } else if (joystick.direction == JoystickDirection.right ||
-        joystick.direction == JoystickDirection.upRight ||
-        joystick.direction == JoystickDirection.downRight) {
-      player.xDirection = 1;
-    } else if (joystick.direction == JoystickDirection.idle) {
-      player.xDirection = 0;
-    } else {
-      player.xDirection = 0;
-    }
-  }
+  // void updateJoystick() {
+  //   if (joystick.direction == JoystickDirection.left || joystick.direction == JoystickDirection.upLeft || joystick.direction == JoystickDirection.downLeft) {
+  //     player.xDirection = -1;
+  //   } else if (joystick.direction == JoystickDirection.right ||
+  //       joystick.direction == JoystickDirection.upRight ||
+  //       joystick.direction == JoystickDirection.downRight) {
+  //     player.xDirection = 1;
+  //   } else if (joystick.direction == JoystickDirection.idle) {
+  //     player.xDirection = 0;
+  //   } else {
+  //     player.xDirection = 0;
+  //   }
+  // }
 }

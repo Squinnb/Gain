@@ -10,7 +10,7 @@ class Level extends World {
   Level({required this.levelName, required this.player});
 
   late TiledComponent level;
-  List<CollisionBlock> collisionBlocks = [];
+
   @override
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load("$levelName.tmx", Vector2.all(16));
@@ -31,18 +31,17 @@ class Level extends World {
       for (final collision in collisionLayer.objects) {
         if (collision.class_ == "Platform") {
           final platform = CollisionBlock(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPlatform: true);
-          collisionBlocks.add(platform);
+
           add(platform);
         } else {
           final block = CollisionBlock(
             position: Vector2(collision.x, collision.y),
             size: Vector2(collision.width, collision.height),
           );
-          collisionBlocks.add(block);
+
           add(block);
         }
       }
-      player.collisionBlocks = collisionBlocks;
     }
     return super.onLoad();
   }
