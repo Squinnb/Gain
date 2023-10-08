@@ -16,8 +16,19 @@
             "scale": 1.0975,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 293.8496583143508,
-                "y": 190.43280182232348
+                "x": 285.1936218678815,
+                "y": 188.61047835990888
+            }
+        },
+        "level-02.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.9388,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 273.7537281636132,
+                "y": 312.100553898594
             }
         }
     },
@@ -26,7 +37,7 @@
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 40,
+    "map.width": 80,
     "openFiles": [
         "gain.tsx",
         "level-01.tmx"

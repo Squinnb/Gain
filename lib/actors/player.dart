@@ -2,32 +2,39 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
-import 'package:gain/gain.dart';
-import 'package:gain/levels/collision_block.dart';
+import 'package:gain/marvington_game.dart';
+import 'package:gain/levels/platform.dart';
 
 enum PlayerState { idle, running }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
-  Player({pos, this.character = "Ninja Frog"}) : super(position: pos);
+  late Vector2 _minClamp;
+  late Vector2 _maxClamp;
+  Player({pos, this.character = "Pink Man", required Rect levelBounds}) : super(position: pos, anchor: Anchor.center) {
+    _minClamp = levelBounds.topLeft.toVector2() + size;
+    _maxClamp = levelBounds.bottomRight.toVector2() - size;
+  }
 
   final double stepTime = 0.05;
-
   double xDirection = 0.0;
   final double _moveSpeed = 100;
   final double _gravity = 10;
   final double _jumpSpeed = 300;
   bool _jumpPressed = false;
   bool _isOnGround = false;
-  Vector2 velocity = Vector2.zero(); // if y > 0 = falling, y < 0 = jumping?
+  Vector2 velocity = Vector2.zero();
+  Vector2 up = Vector2(0, -1);
+  Vector2 down = Vector2(0, 1);
 
   late final SpriteAnimation idleAnime;
   late final SpriteAnimation runningAnime;
 
   @override
   FutureOr<void> onLoad() {
-    add(CircleHitbox());
+    add(CircleHitbox(collisionType: CollisionType.active));
     _loadAllAnimations();
     debugMode = true;
     return super.onLoad();
@@ -37,7 +44,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void update(double dt) {
     _updateAnimation();
     _updatePlayerMovement(dt);
-
     super.update(dt);
   }
 
@@ -52,20 +58,35 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     return super.onKeyEvent(event, keysPressed);
   }
 
+  void _updatePlayerMovement(double dt) {
+    velocity.x = xDirection * _moveSpeed;
+    velocity.y += _gravity;
+    if (_jumpPressed) {
+      if (_isOnGround) {
+        velocity.y = -_jumpSpeed;
+        _isOnGround = false;
+      }
+      _jumpPressed = false;
+    }
+    velocity.y = velocity.y.clamp(-_jumpSpeed, 150);
+    position += (velocity * dt);
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is CollisionBlock) {
+    if (other is Platform) {
       if (intersectionPoints.length == 2) {
         Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
-        Vector2 collisionNormal = absoluteCenter - mid;
-        final seperationDist = (size.x / 2) - collisionNormal.length;
-        collisionNormal.normalize();
+        Vector2 collisionVect = absoluteCenter - mid; // going down
+        double penDist = (size.x / 2) - collisionVect.length;
+        collisionVect.normalize();
+        position += collisionVect.scaled(penDist);
 
-        if (Vector2(0, -1).dot(collisionNormal) > 0.9) {
+        // wt frick man, vector is mag/len(eg 5mph) AND direction(eg left, south)
+        // so velocity is a vector, but why is position? isn't position purely x & y cordinate
+        if (up.dot(collisionVect) > 0.9) {
           _isOnGround = true;
         }
-
-        position += collisionNormal.scaled(seperationDist);
       }
     }
     super.onCollision(intersectionPoints, other);
@@ -98,21 +119,5 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     }
     if (velocity.x > 0 || velocity.x < 0) playerState = PlayerState.running;
     current = playerState;
-  }
-
-  void _updatePlayerMovement(double dt) {
-    velocity.x = xDirection * _moveSpeed;
-    velocity.y += _gravity;
-
-    if (_jumpPressed) {
-      if (_isOnGround) {
-        velocity.y = -_jumpSpeed;
-        _isOnGround = false;
-      }
-      _jumpPressed = false;
-    }
-
-    velocity.y = velocity.y.clamp(-_jumpSpeed, 150);
-    position += (velocity * dt);
   }
 }

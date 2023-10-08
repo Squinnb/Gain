@@ -5,12 +5,11 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:gain/actors/player.dart';
 import 'package:gain/levels/level.dart';
 
 class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection {
   late final CameraComponent cam;
-  Player player = Player();
+
   late JoystickComponent joystick;
 
   @override
@@ -19,7 +18,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages(); // into cache
-    final wrld = Level(player: player, levelName: "level-01");
+    final wrld = Level(levelName: "level-02");
     cam = CameraComponent.withFixedResolution(world: wrld, width: 640, height: 360);
     cam.viewfinder.anchor = Anchor.topLeft;
     addAll([cam, wrld]);
