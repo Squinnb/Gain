@@ -2,7 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gain/marvington_game.dart';
+import 'package:gain/game.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

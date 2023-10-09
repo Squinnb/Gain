@@ -1,22 +1,25 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
-import 'package:gain/marvington_game.dart';
+import 'package:gain/game.dart';
 import 'package:gain/levels/platform.dart';
 
-enum PlayerState { idle, running }
+enum PlayerState { idle, running, jumping, falling }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
-  late Vector2 _minClamp;
-  late Vector2 _maxClamp;
-  Player({pos, this.character = "Pink Man", required Rect levelBounds}) : super(position: pos, anchor: Anchor.center) {
-    _minClamp = levelBounds.topLeft.toVector2() + size;
-    _maxClamp = levelBounds.bottomRight.toVector2() - size;
-  }
+  Player({
+    Vector2? position,
+    this.character = "Pink Man",
+  }) : super(position: position, anchor: Anchor.center);
+  // {
+  // late Vector2 _minClamp;
+  // late Vector2 _maxClamp;
+  //   required Rect levelBounds
+  //   _minClamp = levelBounds.topLeft.toVector2() + size;
+  //   _maxClamp = levelBounds.bottomRight.toVector2() - size;
+  // }
 
   final double stepTime = 0.05;
   double xDirection = 0.0;
@@ -31,6 +34,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   late final SpriteAnimation idleAnime;
   late final SpriteAnimation runningAnime;
+  late final SpriteAnimation jumpAnime;
+  late final SpriteAnimation fallAnime;
 
   @override
   FutureOr<void> onLoad() {
@@ -70,6 +75,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     }
     velocity.y = velocity.y.clamp(-_jumpSpeed, 150);
     position += (velocity * dt);
+    // position.clamp(_minClamp, _maxClamp);
   }
 
   @override
@@ -81,9 +87,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
         double penDist = (size.x / 2) - collisionVect.length;
         collisionVect.normalize();
         position += collisionVect.scaled(penDist);
-
-        // wt frick man, vector is mag/len(eg 5mph) AND direction(eg left, south)
-        // so velocity is a vector, but why is position? isn't position purely x & y cordinate
         if (up.dot(collisionVect) > 0.9) {
           _isOnGround = true;
         }
@@ -106,7 +109,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void _loadAllAnimations() {
     idleAnime = _spriteAnimation("Idle", 11);
     runningAnime = _spriteAnimation("Run", 12);
-    animations = {PlayerState.idle: idleAnime, PlayerState.running: runningAnime};
+    jumpAnime = _spriteAnimation("Jump", 1);
+    fallAnime = _spriteAnimation("Fall", 1);
+    animations = {PlayerState.idle: idleAnime, PlayerState.running: runningAnime, PlayerState.jumping: jumpAnime, PlayerState.falling: fallAnime};
     current = PlayerState.running;
   }
 
@@ -118,6 +123,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       flipHorizontallyAroundCenter();
     }
     if (velocity.x > 0 || velocity.x < 0) playerState = PlayerState.running;
+    if (velocity.y > 0 && !_isOnGround) playerState = PlayerState.falling;
+    if (velocity.y < 0 && !_isOnGround) playerState = PlayerState.jumping;
     current = playerState;
   }
 }

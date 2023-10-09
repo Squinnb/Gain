@@ -4,24 +4,20 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
 import 'package:gain/levels/platform.dart';
+import 'package:flame/experimental.dart';
 
 class Level extends World with HasGameRef {
   String levelName;
-  Level({required this.levelName});
-
-  late Player player;
+  Player player;
+  Level({required this.levelName, required this.player});
   late TiledComponent level;
-  late Rect levelBounds;
 
   @override
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load("$levelName.tmx", Vector2.all(16));
-    levelBounds = Rect.fromLTWH(
-        0, 0, (level.tileMap.map.width * level.tileMap.map.tileWidth).toDouble(), (level.tileMap.map.height * level.tileMap.map.tileHeight).toDouble());
-    Player player = Player(levelBounds: levelBounds);
     _spawnActors();
-    game.camera.follow(player);
     _createPlatforms();
+    _setupCam();
     add(level);
     return super.onLoad();
   }
@@ -42,7 +38,7 @@ class Level extends World with HasGameRef {
     final collisionLayer = level.tileMap.getLayer<ObjectGroup>("Collisions");
     if (collisionLayer != null) {
       for (final collision in collisionLayer.objects) {
-        if (collision.class_ == "Platform") {
+        if (collision.class_ == "Passable") {
           // need to change class name
           final platform = Platform(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPassable: true);
           add(platform);
@@ -55,5 +51,12 @@ class Level extends World with HasGameRef {
         }
       }
     }
+  }
+
+  void _setupCam() {
+    double boundsWidth = (level.tileMap.map.width * level.tileMap.map.tileWidth).toDouble();
+    double boundsHeight = (level.tileMap.map.height * level.tileMap.map.tileHeight).toDouble();
+    Rect rect = Rect.fromLTWH(0, 0, boundsWidth, boundsHeight);
+    gameRef.camera.setBounds(Rectangle.fromRect(rect));
   }
 }
