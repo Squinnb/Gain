@@ -12,7 +12,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages(); // into cache
-    Level lvl = Level(levelName: "level-02", player: player);
+    Level lvl = Level(levelName: "level-01", player: player);
     cam = CameraComponent.withFixedResolution(world: lvl, width: 940, height: 640);
     cam.follow(player);
     addAll([lvl, cam]);

@@ -13,6 +13,9 @@
             "scaleInEditor": 1
         },
         "level-01.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
             "scale": 1.0975,
             "selectedLayer": 2,
             "viewCenter": {
@@ -22,13 +25,13 @@
         },
         "level-02.tmx": {
             "expandedObjectLayers": [
-                2
+                3
             ],
-            "scale": 1.0073,
+            "scale": 0.7373,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 69.98907971805818,
-                "y": 249.18097885436313
+                "x": 639.4954563949545,
+                "y": 184.45680184456802
             }
         }
     },
@@ -40,11 +43,13 @@
     "map.width": 80,
     "openFiles": [
         "gain.tsx",
-        "level-01.tmx"
+        "level-01.tmx",
+        "level-02.tmx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
         "gain.tsx",
+        "level-02.tmx",
         "level-01.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

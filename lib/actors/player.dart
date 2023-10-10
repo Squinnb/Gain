@@ -39,7 +39,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    add(CircleHitbox(collisionType: CollisionType.active));
+    add(RectangleHitbox(collisionType: CollisionType.active));
     _loadAllAnimations();
     debugMode = true;
     return super.onLoad();
@@ -65,7 +65,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   void _updatePlayerMovement(double dt) {
     velocity.x = xDirection * _moveSpeed;
-    velocity.y += _gravity;
+    //velocity.y += _gravity;
     if (_jumpPressed) {
       if (_isOnGround) {
         velocity.y = -_jumpSpeed;
@@ -82,12 +82,22 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Platform) {
       if (intersectionPoints.length == 2) {
-        Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
-        Vector2 collisionVect = absoluteCenter - mid; // going down
-        double penDist = (size.x / 2) - collisionVect.length;
-        collisionVect.normalize();
-        position += collisionVect.scaled(penDist);
-        if (up.dot(collisionVect) > 0.9) {
+        Vector2 intersectOne = intersectionPoints.elementAt(0);
+        Vector2 intersectTwo = intersectionPoints.elementAt(0);
+        if (!other.isPassable) {
+          if (velocity.x > 0) {
+            // position is center of player not top left or right
+            velocity.x = 0;
+            position.x = other.x - (width / 2);
+          } else if (velocity.x < 0) {
+            velocity.x = 0;
+            position.x = (other.x + other.width) + (width / 2);
+          }
+        }
+
+        Vector2 mid = (intersectOne + intersectTwo) / 2;
+        Vector2 collisionVect = absoluteCenter - mid;
+        if (up.dot(collisionVect.normalized()) > 0.9) {
           _isOnGround = true;
         }
       }
