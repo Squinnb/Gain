@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -21,16 +23,21 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   //   _maxClamp = levelBounds.bottomRight.toVector2() - size;
   // }
 
-  final double stepTime = 0.05;
-  double xDirection = 0.0;
-  final double _moveSpeed = 100;
-  final double _gravity = 10;
-  final double _jumpSpeed = 300;
+  double stepTime = 0.05;
+  double xDir = 0.0;
+  double _moveSpeed = 100;
+  double _gravity = 10;
+  double _jumpForce = 300;
+  double _terminalYVelocity = 120;
+
   bool _jumpPressed = false;
-  bool _isOnGround = false;
+  bool _isOnGround = true;
+
   Vector2 velocity = Vector2.zero();
   Vector2 up = Vector2(0, -1);
   Vector2 down = Vector2(0, 1);
+  Vector2 right = Vector2(1, 0);
+  Vector2 left = Vector2(-1, 0);
 
   late final SpriteAnimation idleAnime;
   late final SpriteAnimation runningAnime;
@@ -56,24 +63,24 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     bool leftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
     bool rightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
-    xDirection = 0;
-    xDirection += leftKeyPressed ? -1 : 0;
-    xDirection += rightKeyPressed ? 1 : 0;
+    xDir = 0;
+    xDir += leftKeyPressed ? -1 : 0;
+    xDir += rightKeyPressed ? 1 : 0;
     _jumpPressed = keysPressed.contains(LogicalKeyboardKey.space);
     return super.onKeyEvent(event, keysPressed);
   }
 
   void _updatePlayerMovement(double dt) {
-    velocity.x = xDirection * _moveSpeed;
-    //velocity.y += _gravity;
+    velocity.x = xDir * _moveSpeed;
+    velocity.y += _gravity;
     if (_jumpPressed) {
       if (_isOnGround) {
-        velocity.y = -_jumpSpeed;
+        velocity.y = -_jumpForce;
         _isOnGround = false;
       }
       _jumpPressed = false;
     }
-    velocity.y = velocity.y.clamp(-_jumpSpeed, 150);
+    velocity.y = velocity.y.clamp(-_jumpForce, _terminalYVelocity);
     position += (velocity * dt);
     // position.clamp(_minClamp, _maxClamp);
   }
@@ -84,7 +91,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       if (intersectionPoints.length == 2) {
         Vector2 intersectOne = intersectionPoints.elementAt(0);
         Vector2 intersectTwo = intersectionPoints.elementAt(0);
+        Vector2 mid = (intersectOne + intersectTwo) / 2;
+        Vector2 collisionVect = absoluteCenter - mid;
+        collisionVect.normalize();
         if (!other.isPassable) {
+          // horiz collision check
           if (velocity.x > 0) {
             // position is center of player not top left or right
             velocity.x = 0;
@@ -93,11 +104,20 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
             velocity.x = 0;
             position.x = (other.x + other.width) + (width / 2);
           }
+
+          // ~~~~~~~~~~~~~~~~~~~~~~~~
+          // vertical collision check
+          if (velocity.y > 0) {
+            velocity.y = 0;
+            position.y = other.y - (height / 2);
+          } else if (velocity.y < 0) {
+            velocity.y = 0;
+            position.y = other.y + other.height + (height / 2);
+          }
+          // ~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
 
-        Vector2 mid = (intersectOne + intersectTwo) / 2;
-        Vector2 collisionVect = absoluteCenter - mid;
-        if (up.dot(collisionVect.normalized()) > 0.9) {
+        if (up.dot(collisionVect) > 0.9) {
           _isOnGround = true;
         }
       }
