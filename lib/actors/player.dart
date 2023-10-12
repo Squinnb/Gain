@@ -31,7 +31,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double _terminalYVelocity = 120;
 
   bool _jumpPressed = false;
-  bool _isOnGround = true;
+  bool _isOnGround = false;
 
   Vector2 velocity = Vector2.zero();
   Vector2 up = Vector2(0, -1);
@@ -46,7 +46,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    add(RectangleHitbox(collisionType: CollisionType.active));
+    add(CircleHitbox(collisionType: CollisionType.active));
     _loadAllAnimations();
     debugMode = true;
     return super.onLoad();
@@ -104,7 +104,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
             velocity.x = 0;
             position.x = (other.x + other.width) + (width / 2);
           }
-
           // ~~~~~~~~~~~~~~~~~~~~~~~~
           // vertical collision check
           if (velocity.y > 0) {
@@ -117,7 +116,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
           // ~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
 
-        if (up.dot(collisionVect) > 0.9) {
+        if (up.dot(collisionVect) < 0.9) {
           _isOnGround = true;
         }
       }
