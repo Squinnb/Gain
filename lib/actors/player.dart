@@ -31,7 +31,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double _terminalYVelocity = 120;
 
   bool _jumpPressed = false;
-  bool _isOnGround = false;
+  bool _isOnGround = true;
 
   Vector2 velocity = Vector2.zero();
   Vector2 up = Vector2(0, -1);
@@ -96,24 +96,30 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
         collisionVect.normalize();
         if (!other.isPassable) {
           // horiz collision check
-          if (velocity.x > 0) {
+          bool rightCollide = mid.x == other.x;
+          bool leftCollide = mid.x == other.x + other.width;
+          bool topCollide = mid.y == other.y + other.height;
+          if (velocity.x > 0 && rightCollide) {
             // position is center of player not top left or right
             velocity.x = 0;
             position.x = other.x - (width / 2);
-          } else if (velocity.x < 0) {
+          } else if (velocity.x < 0 && leftCollide) {
             velocity.x = 0;
             position.x = (other.x + other.width) + (width / 2);
           }
           // ~~~~~~~~~~~~~~~~~~~~~~~~
           // vertical collision check
-          if (velocity.y > 0) {
-            velocity.y = 0;
-            position.y = other.y - (height / 2);
-          } else if (velocity.y < 0) {
+          if (velocity.y < 0 && topCollide) {
             velocity.y = 0;
             position.y = other.y + other.height + (height / 2);
           }
           // ~~~~~~~~~~~~~~~~~~~~~~~~~~
+        }
+        bool bottomCollide = mid.y == other.y;
+        if (velocity.y > 0 && bottomCollide) {
+          velocity.y = 0;
+          position.y = other.y - (height / 2);
+          _isOnGround = true;
         }
 
         if (up.dot(collisionVect) < 0.9) {
