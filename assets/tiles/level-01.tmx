@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="40">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="43">
  <tileset firstgid="1" source="gain.tsx"/>
  <layer id="1" name="Background" width="40" height="23">
   <data encoding="csv">
@@ -30,6 +30,8 @@
  </layer>
  <objectgroup id="2" name="SpawnPoints" class="Player">
   <object id="6" name="Player" type="Player" x="128" y="240" width="32" height="32"/>
+  <object id="40" name="Cherries" type="Fruit" x="336" y="144" width="32" height="32"/>
+  <object id="42" name="Kiwi" type="Fruit" x="400" y="192" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="Collisions">
   <object id="17" x="48" y="16" width="16" height="320"/>

@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
+import 'package:gain/components/background_tile.dart';
+import 'package:gain/components/fruit.dart';
 import 'package:gain/levels/platform.dart';
 import 'package:flame/experimental.dart';
 
@@ -25,10 +27,13 @@ class Level extends World with HasGameRef {
   void _spawnActors() {
     ObjectGroup? spawnPointLayer = level.tileMap.getLayer<ObjectGroup>('SpawnPoints');
     if (spawnPointLayer != null) {
-      for (final spawnPoint in spawnPointLayer.objects) {
+      for (TiledObject spawnPoint in spawnPointLayer.objects) {
         if (spawnPoint.class_ == "Player") {
           player.position = Vector2(spawnPoint.x, spawnPoint.y);
           add(player);
+        } else if (spawnPoint.class_ == "Fruit") {
+          Fruit f = Fruit(fruitType: spawnPoint.name, position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
+          add(f);
         }
       }
     }
@@ -58,5 +63,21 @@ class Level extends World with HasGameRef {
     double boundsHeight = (level.tileMap.map.height * level.tileMap.map.tileHeight).toDouble();
     Rect rect = Rect.fromLTWH(0, 0, boundsWidth, boundsHeight);
     gameRef.camera.setBounds(Rectangle.fromRect(rect));
+  }
+
+  void _addBackground() {
+    Layer? background = level.tileMap.getLayer("Background");
+    if (background != null) {
+      String? bgColor = background.properties.getValue("BackgroundColor");
+      const int tileSize = 64;
+      int numTilesY = (game.size.y / tileSize).floor();
+      int numTilesX = (game.size.x / tileSize).floor();
+      for (double y = 0; y < (game.size.y / numTilesY); y++) {
+        for (double x = 0; x < (game.size.x / numTilesX); x++) {
+          BackgroundTile bgTile = BackgroundTile(color: bgColor ?? 'Gray', position: Vector2(x, y));
+          add(bgTile);
+        }
+      }
+    }
   }
 }

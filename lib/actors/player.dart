@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:gain/components/fruit.dart';
 import 'package:gain/game.dart';
 import 'package:gain/levels/platform.dart';
 
@@ -46,7 +47,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    add(CircleHitbox(collisionType: CollisionType.active));
+    add(RectangleHitbox(
+      collisionType: CollisionType.active,
+    ));
     _loadAllAnimations();
     debugMode = true;
     return super.onLoad();
@@ -89,43 +92,42 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Platform) {
       if (intersectionPoints.length == 2) {
-        Vector2 intersectOne = intersectionPoints.elementAt(0);
-        Vector2 intersectTwo = intersectionPoints.elementAt(0);
-        Vector2 mid = (intersectOne + intersectTwo) / 2;
+        Vector2 pointA = intersectionPoints.elementAt(0);
+        Vector2 pointB = intersectionPoints.elementAt(1);
+        Vector2 mid = (pointA + pointB) / 2;
         Vector2 collisionVect = absoluteCenter - mid;
+        double difDist = (size.x / 2) - collisionVect.length;
         collisionVect.normalize();
-        if (!other.isPassable) {
-          // horiz collision check
-          bool rightCollide = mid.x == other.x;
-          bool leftCollide = mid.x == other.x + other.width;
-          bool topCollide = mid.y == other.y + other.height;
-          if (velocity.x > 0 && rightCollide) {
-            // position is center of player not top left or right
-            velocity.x = 0;
-            position.x = other.x - (width / 2);
-          } else if (velocity.x < 0 && leftCollide) {
-            velocity.x = 0;
-            position.x = (other.x + other.width) + (width / 2);
-          }
-          // ~~~~~~~~~~~~~~~~~~~~~~~~
-          // vertical collision check
-          if (velocity.y < 0 && topCollide) {
-            velocity.y = 0;
-            position.y = other.y + other.height + (height / 2);
-          }
-          // ~~~~~~~~~~~~~~~~~~~~~~~~~~
-        }
-        bool bottomCollide = mid.y == other.y;
-        if (velocity.y > 0 && bottomCollide) {
-          velocity.y = 0;
-          position.y = other.y - (height / 2);
-          _isOnGround = true;
-        }
+        position += collisionVect.scaled(difDist);
+        // if (!other.isPassable) {
+        //   bool rightCollide = (position.x + width) > other.x; //mid.x == other.x;
+        //   bool leftCollide = (position.x - width) < other.x + other.width; //mid.x == other.x + other.width;
+        //   bool topCollide = mid.y == other.y + other.height;
+        //   if (velocity.x > 0 && rightCollide && mid.y == position.y) {
+        //     velocity.x = 0;
+        //     position.x = other.x - (width / 2);
+        //   } else if (velocity.x < 0 && leftCollide && mid.y == position.y) {
+        //     velocity.x = 0;
+        //     position.x = (other.x + other.width) + (width / 2);
+        //   }
+        //   if (velocity.y < 0 && topCollide) {
+        //     velocity.y = 0;
+        //     position.y = other.y + other.height + (height / 2);
+        //   }
+        // }
+        // bool bottomCollide = (position.y + height) > other.y; //mid.y == other.y;
+        // if (velocity.y > 0 && bottomCollide) {
+        //   velocity.y = 0;
+        //   position.y = other.y - (height / 2);
+        //   _isOnGround = true;
+        // }
 
-        if (up.dot(collisionVect) < 0.9) {
+        if (up.dot(collisionVect) > 0.9) {
           _isOnGround = true;
         }
       }
+    } else if (other is Fruit) {
+      other.collect();
     }
     super.onCollision(intersectionPoints, other);
   }
