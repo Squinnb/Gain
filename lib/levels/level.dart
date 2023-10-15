@@ -5,6 +5,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
 import 'package:gain/components/background_tile.dart';
 import 'package:gain/components/fruit.dart';
+import 'package:gain/components/saw.dart';
 import 'package:gain/levels/platform.dart';
 import 'package:flame/experimental.dart';
 
@@ -19,7 +20,7 @@ class Level extends World with HasGameRef {
     level = await TiledComponent.load("$levelName.tmx", Vector2.all(16));
     _spawnActors();
     _createPlatforms();
-    _setupCam();
+    // _setupCam();
     add(level);
     return super.onLoad();
   }
@@ -30,10 +31,22 @@ class Level extends World with HasGameRef {
       for (TiledObject spawnPoint in spawnPointLayer.objects) {
         if (spawnPoint.class_ == "Player") {
           player.position = Vector2(spawnPoint.x, spawnPoint.y);
+          player.spawnLocation = Vector2(spawnPoint.x, spawnPoint.y);
           add(player);
         } else if (spawnPoint.class_ == "Fruit") {
           Fruit f = Fruit(fruitType: spawnPoint.name, position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
           add(f);
+        } else if (spawnPoint.class_ == "Saw") {
+          double offNegative = spawnPoint.properties.getValue("offNegative");
+          double offPositive = spawnPoint.properties.getValue("offPositive");
+          bool isVertical = spawnPoint.properties.getValue("isVertical");
+          Saw s = Saw(
+              isVertical: isVertical,
+              offNegative: offNegative,
+              offPositive: offPositive,
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height));
+          add(s);
         }
       }
     }

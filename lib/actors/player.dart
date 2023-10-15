@@ -1,14 +1,16 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:async';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 import 'package:gain/components/fruit.dart';
+import 'package:gain/components/saw.dart';
 import 'package:gain/game.dart';
 import 'package:gain/levels/platform.dart';
 
-enum PlayerState { idle, running, jumping, falling }
+enum PlayerState { appear, idle, running, jumping, falling, disappear, hit }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
@@ -27,23 +29,28 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double stepTime = 0.05;
   double xDir = 0.0;
   double _moveSpeed = 100;
-  double _gravity = 10;
+  double _gravity = 12;
   double _jumpForce = 300;
-  double _terminalYVelocity = 120;
+  double _terminalYVelocity = 200;
 
   bool _jumpPressed = false;
   bool _isOnGround = true;
+  bool _dead = false;
 
   Vector2 velocity = Vector2.zero();
   Vector2 up = Vector2(0, -1);
   Vector2 down = Vector2(0, 1);
   Vector2 right = Vector2(1, 0);
   Vector2 left = Vector2(-1, 0);
+  late Vector2 spawnLocation;
 
+  late final SpriteAnimation appearAnime;
   late final SpriteAnimation idleAnime;
   late final SpriteAnimation runningAnime;
   late final SpriteAnimation jumpAnime;
   late final SpriteAnimation fallAnime;
+  late final SpriteAnimation disappearAnime;
+  late final SpriteAnimation hitAnime;
 
   @override
   FutureOr<void> onLoad() {
@@ -57,8 +64,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   void update(double dt) {
-    _updateAnimation();
-    _updatePlayerMovement(dt);
+    if (!_dead) {
+      _updateAnimation();
+      _updatePlayerMovement(dt);
+    }
     super.update(dt);
   }
 
@@ -121,24 +130,31 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
         //   position.y = other.y - (height / 2);
         //   _isOnGround = true;
         // }
-
         if (up.dot(collisionVect) > 0.9) {
           _isOnGround = true;
         }
       }
     } else if (other is Fruit) {
       other.collect();
+    } else if (other is Saw) {
+      _die();
     }
     super.onCollision(intersectionPoints, other);
   }
 
   SpriteAnimation _spriteAnimation(String state, int amount) {
+    String cacheUrl = "Main Characters/$character/$state (32x32).png";
+    double txtSz = 32;
+    if (state == "Disappearing" || state == "Appearing") {
+      cacheUrl = "Main Characters/$state (96x96).png";
+      txtSz = 96;
+    }
     return SpriteAnimation.fromFrameData(
-      game.images.fromCache("Main Characters/$character/$state (32x32).png"),
+      game.images.fromCache(cacheUrl),
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
-        textureSize: Vector2.all(32),
+        textureSize: Vector2.all(txtSz),
       ),
     );
   }
@@ -148,8 +164,19 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     runningAnime = _spriteAnimation("Run", 12);
     jumpAnime = _spriteAnimation("Jump", 1);
     fallAnime = _spriteAnimation("Fall", 1);
-    animations = {PlayerState.idle: idleAnime, PlayerState.running: runningAnime, PlayerState.jumping: jumpAnime, PlayerState.falling: fallAnime};
-    current = PlayerState.running;
+    disappearAnime = _spriteAnimation("Disappearing", 7);
+    appearAnime = _spriteAnimation("Appearing", 7);
+    hitAnime = _spriteAnimation("Hit", 7);
+    animations = {
+      PlayerState.idle: idleAnime,
+      PlayerState.running: runningAnime,
+      PlayerState.jumping: jumpAnime,
+      PlayerState.falling: fallAnime,
+      PlayerState.appear: appearAnime,
+      PlayerState.hit: hitAnime,
+      PlayerState.disappear: disappearAnime
+    };
+    current = PlayerState.idle;
   }
 
   void _updateAnimation() {
@@ -163,5 +190,22 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     if (velocity.y > 0 && !_isOnGround) playerState = PlayerState.falling;
     if (velocity.y < 0 && !_isOnGround) playerState = PlayerState.jumping;
     current = playerState;
+  }
+
+  void _die() async {
+    const Duration dur = Duration(milliseconds: 350); //stepTime(50 milisec) * 7 stepFrames = 350
+    _dead = true;
+    current = PlayerState.hit;
+    Future.delayed(dur, () {
+      scale.x = 1; // face to the right
+      position = spawnLocation;
+      current = PlayerState.appear;
+      Future.delayed(dur, () {
+        velocity = Vector2.zero();
+
+        _updateAnimation();
+        Future.delayed(dur, () => _dead = false);
+      });
+    });
   }
 }

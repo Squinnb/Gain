@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="40">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="49">
  <tileset firstgid="1" source="gain.tsx"/>
  <layer id="1" name="Tile Layer 1" width="80" height="23">
   <data encoding="csv">
@@ -30,6 +30,16 @@
  </layer>
  <objectgroup id="2" name="SpawnPoints">
   <object id="6" type="Player" x="96" y="192" width="32" height="32"/>
+  <object id="44" name="Kiwi" type="Fruit" x="448" y="160" width="32" height="32"/>
+  <object id="45" name="Cherries" type="Fruit" x="560" y="128" width="32" height="32"/>
+  <object id="46" name="Apple" type="Fruit" x="672" y="112" width="32" height="32"/>
+  <object id="48" type="Saw" x="848" y="144" width="32" height="32">
+   <properties>
+    <property name="isVertical" type="bool" value="true"/>
+    <property name="offNegative" type="float" value="4"/>
+    <property name="offPositive" type="float" value="4"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="3" name="Collisions">
   <object id="20" x="0" y="0" width="1280" height="16"/>

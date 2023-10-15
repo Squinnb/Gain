@@ -9,5 +9,5 @@ void main() async {
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
   Gain game = Gain();
-  runApp(GameWidget(game: kDebugMode ? Gain() : game)); // this ensures whole game reloads in dev mode
+  runApp(GameWidget(game: kDebugMode ? Gain() : game)); //ensures proper reload.
 }
