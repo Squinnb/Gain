@@ -28,7 +28,7 @@ class Saw extends SpriteAnimationComponent with HasGameRef<Gain> {
       negRange = position.x - offNegative * tileSize;
       posRange = position.x + offPositive * tileSize;
     }
-    animation = createSpriteAnime();
+    animation = _createSpriteAnime();
     add(CircleHitbox());
     return super.onLoad();
   }
@@ -43,7 +43,7 @@ class Saw extends SpriteAnimationComponent with HasGameRef<Gain> {
     super.update(dt);
   }
 
-  SpriteAnimation createSpriteAnime() {
+  SpriteAnimation _createSpriteAnime() {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Traps/Saw/On (38x38).png"),
       SpriteAnimationData.sequenced(

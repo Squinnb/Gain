@@ -3,13 +3,53 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level-01.tmx",
+    "activeFile": "Ice Mountain.tmx",
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "Desert Plain.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 0.9259,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 834.3233610541095,
+                "y": 195.48547359326065
+            }
+        },
+        "Grass Land copy.tmx": {
+            "scale": 1.034609375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.410783055199,
+                "y": 184.61073774824436
+            }
+        },
+        "Grass Land.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1.03,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 330.58252427184465,
+                "y": 169.90291262135923
+            }
+        },
+        "Ice Mountain.tmx": {
+            "scale": 1.0582,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 337.8378378378378,
+                "y": 175.77017577017577
+            }
+        },
         "gain.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5586,
             "scaleInEditor": 1
         },
         "level-01.tmx": {
@@ -17,11 +57,11 @@
                 3,
                 2
             ],
-            "scale": 1.0975,
-            "selectedLayer": 1,
+            "scale": 0.9833,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 410.4783599088839,
-                "y": 188.61047835990888
+                "x": 339.16403945896474,
+                "y": 219.66846333774023
             }
         },
         "level-02.tmx": {
@@ -32,8 +72,8 @@
             "scale": 0.7373,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 518.7847551878476,
-                "y": 157.330801573308
+                "x": 639.4954563949545,
+                "y": 184.45680184456802
             }
         }
     },
@@ -45,15 +85,20 @@
     "map.width": 80,
     "openFiles": [
         "gain.tsx",
-        "level-01.tmx",
-        "level-02.tmx"
+        "Grass Land.tmx",
+        "Desert Plain.tmx",
+        "Ice Mountain.tmx"
     ],
     "project": "untitled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "level-01.tmx",
         "gain.tsx",
-        "level-02.tmx"
+        "Grass Land.tmx",
+        "Desert Plain.tmx",
+        "Ice Mountain.tmx",
+        "Grass Land copy.tmx",
+        "level-02.tmx",
+        "level-01.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
 import 'package:gain/components/background_tile.dart';
+import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
 import 'package:gain/components/saw.dart';
 import 'package:gain/levels/platform.dart';
@@ -47,6 +48,9 @@ class Level extends World with HasGameRef {
               position: Vector2(spawnPoint.x, spawnPoint.y),
               size: Vector2(spawnPoint.width, spawnPoint.height));
           add(s);
+        } else if (spawnPoint.class_ == "Checkpoint") {
+          Checkpoint checkp = Checkpoint(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
+          add(checkp);
         }
       }
     }

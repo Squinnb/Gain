@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
 import 'package:gain/components/saw.dart';
 import 'package:gain/game.dart';
@@ -33,9 +34,12 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double _jumpForce = 300;
   double _terminalYVelocity = 200;
 
+  static const Duration _dur = Duration(milliseconds: 350); //stepTime(50 milisec) * 7 stepFrames = 350
+
   bool _jumpPressed = false;
   bool _isOnGround = true;
   bool _dead = false;
+  bool hasBeatLevel = false;
 
   Vector2 velocity = Vector2.zero();
   Vector2 up = Vector2(0, -1);
@@ -54,7 +58,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    add(RectangleHitbox(
+    add(CircleHitbox(
       collisionType: CollisionType.active,
     ));
     _loadAllAnimations();
@@ -64,7 +68,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   void update(double dt) {
-    if (!_dead) {
+    if (!_dead && !hasBeatLevel) {
       _updateAnimation();
       _updatePlayerMovement(dt);
     }
@@ -138,6 +142,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       other.collect();
     } else if (other is Saw) {
       _die();
+    } else if (other is Checkpoint) {
+      _beatLevel();
     }
     super.onCollision(intersectionPoints, other);
   }
@@ -193,18 +199,38 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   }
 
   void _die() async {
-    const Duration dur = Duration(milliseconds: 350); //stepTime(50 milisec) * 7 stepFrames = 350
     _dead = true;
     current = PlayerState.hit;
-    Future.delayed(dur, () {
-      scale.x = 1; // face to the right
-      position = spawnLocation;
-      current = PlayerState.appear;
-      Future.delayed(dur, () {
+    Future.delayed(_dur, () {
+      _respawn();
+      Future.delayed(_dur, () {
         velocity = Vector2.zero();
-
         _updateAnimation();
-        Future.delayed(dur, () => _dead = false);
+        Future.delayed(_dur, () => _dead = false);
+      });
+    });
+  }
+
+  void _respawn() {
+    scale.x = 1; // face to the right
+    position = spawnLocation;
+    current = PlayerState.appear;
+  }
+
+  void _beatLevel() {
+    hasBeatLevel = true;
+    if (scale.x > 0) {
+      position = position - Vector2.all(32);
+    } else if (scale.x < 0) {
+      position = position + Vector2(32, -32);
+    }
+    current = PlayerState.disappear;
+    velocity = Vector2.zero(); // this doesn't do anything/work.
+    Future.delayed(_dur, () {
+      hasBeatLevel = false;
+      removeFromParent();
+      Future.delayed(const Duration(seconds: 3), () {
+        game.loadNextLevel();
       });
     });
   }
