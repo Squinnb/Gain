@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
-import 'package:gain/components/background_tile.dart';
+import 'package:gain/components/wallpaper.dart';
 import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
 import 'package:gain/components/saw.dart';
@@ -22,6 +22,7 @@ class Level extends World with HasGameRef {
     _spawnActors();
     _createPlatforms();
     // _setupCam();
+    _addBackground();
     add(level);
     return super.onLoad();
   }
@@ -86,15 +87,8 @@ class Level extends World with HasGameRef {
     Layer? background = level.tileMap.getLayer("Background");
     if (background != null) {
       String? bgColor = background.properties.getValue("BackgroundColor");
-      const int tileSize = 64;
-      int numTilesY = (game.size.y / tileSize).floor();
-      int numTilesX = (game.size.x / tileSize).floor();
-      for (double y = 0; y < (game.size.y / numTilesY); y++) {
-        for (double x = 0; x < (game.size.x / numTilesX); x++) {
-          BackgroundTile bgTile = BackgroundTile(color: bgColor ?? 'Gray', position: Vector2(x, y));
-          add(bgTile);
-        }
-      }
+      WallPaper bgTile = WallPaper(color: bgColor ?? 'Gray', position: Vector2(0, 0));
+      add(bgTile);
     }
   }
 }

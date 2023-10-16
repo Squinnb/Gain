@@ -9,7 +9,6 @@ class Fruit extends SpriteAnimationComponent with HasGameRef<Gain> {
   Fruit({this.fruitType = "Cherries", Vector2? position, Vector2? size}) : super(position: position, size: size);
 
   final double stepTime = 0.05;
-  bool _collected = false;
 
   @override
   FutureOr<void> onLoad() {
@@ -19,22 +18,18 @@ class Fruit extends SpriteAnimationComponent with HasGameRef<Gain> {
   }
 
   void collect() async {
-    if (!_collected) {
-      animation = createSpriteAnime("Collected", 6, loop: _collected);
-      _collected = true;
-      await Future.delayed(const Duration(milliseconds: 300));
-      removeFromParent();
-    }
+    animation = createSpriteAnime("Collected", 6)..loop = false;
+    await animationTicker?.completed;
+    removeFromParent();
   }
 
-  SpriteAnimation createSpriteAnime(String imgName, int amount, {bool loop = true}) {
+  SpriteAnimation createSpriteAnime(String imgName, int amount) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Items/Fruits/$imgName.png"),
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
         textureSize: Vector2.all(32),
-        loop: loop,
       ),
     );
   }

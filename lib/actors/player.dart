@@ -70,14 +70,14 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   void update(double dt) {
-    accumulatedTime += dt; // this evens out perform on all diff platforms.
-    while (accumulatedTime >= fixedDeltaTime) {
-      if (!_dead && !hasBeatLevel) {
-        _updateAnimation();
-        _updatePlayerMovement(dt);
-      }
-      accumulatedTime -= fixedDeltaTime;
+    //accumulatedTime += dt; // this evens out perform on all diff platforms.
+    //while (accumulatedTime >= fixedDeltaTime) {
+    if (!_dead && !hasBeatLevel) {
+      _updateAnimation();
+      _updatePlayerMovement(dt);
     }
+    //accumulatedTime -= fixedDeltaTime;
+    //}
 
     super.update(dt);
   }
@@ -145,14 +145,20 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
           _isOnGround = true;
         }
       }
-    } else if (other is Fruit) {
+    }
+    super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Fruit) {
       other.collect();
     } else if (other is Saw) {
       _die();
     } else if (other is Checkpoint) {
       _beatLevel();
     }
-    super.onCollision(intersectionPoints, other);
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   SpriteAnimation _spriteAnimation(String state, int amount) {
@@ -177,9 +183,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     runningAnime = _spriteAnimation("Run", 12);
     jumpAnime = _spriteAnimation("Jump", 1);
     fallAnime = _spriteAnimation("Fall", 1);
-    disappearAnime = _spriteAnimation("Disappearing", 7);
-    appearAnime = _spriteAnimation("Appearing", 7);
-    hitAnime = _spriteAnimation("Hit", 7);
+    disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
+    appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
+    hitAnime = _spriteAnimation("Hit", 7)..loop = false;
     animations = {
       PlayerState.idle: idleAnime,
       PlayerState.running: runningAnime,
@@ -208,20 +214,19 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void _die() async {
     _dead = true;
     current = PlayerState.hit;
-    Future.delayed(_dur, () {
-      _respawn();
-      Future.delayed(_dur, () {
-        velocity = Vector2.zero();
-        _updateAnimation();
-        Future.delayed(_dur, () => _dead = false);
-      });
-    });
-  }
+    await animationTicker?.completed;
+    animationTicker?.reset();
 
-  void _respawn() {
+    // respawn
     scale.x = 1; // face to the right
     position = spawnLocation;
     current = PlayerState.appear;
+    await animationTicker?.completed;
+    animationTicker?.reset();
+
+    velocity = Vector2.zero();
+    // _updateAnimation();
+    Future.delayed(_dur, () => _dead = false);
   }
 
   void _beatLevel() {

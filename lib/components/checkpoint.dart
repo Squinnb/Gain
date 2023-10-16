@@ -8,7 +8,6 @@ import 'package:gain/game.dart';
 class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCallbacks {
   Checkpoint({Vector2? position, Vector2? size}) : super(position: position, size: size);
   double stepTime = 0.05;
-  bool reachedCheckpoint = false;
 
   @override
   FutureOr<void> onLoad() {
@@ -19,18 +18,16 @@ class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, Collisi
   }
 
   @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Player && !reachedCheckpoint) {
-      reachedCheckpoint = true;
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) async {
+    if (other is Player) {
       animation = _createSpriteAnime(name: "(Flag Out)", amount: 26);
-      const Duration dur = Duration(milliseconds: 1300);
-      Future.delayed(dur, () {
-        other.velocity = Vector2.zero();
-        animation = _createSpriteAnime(name: "(Flag Idle)", amount: 10);
-        other.velocity = Vector2.zero();
-      });
+      await animationTicker?.completed;
+      other.velocity = Vector2.zero();
+      animation = _createSpriteAnime(name: "(Flag Idle)", amount: 10);
+      await animationTicker?.completed;
+      other.velocity = Vector2.zero();
     }
-    super.onCollision(intersectionPoints, other);
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   SpriteAnimation _createSpriteAnime({String name = "(No Flag)", int amount = 1}) {
