@@ -33,6 +33,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double _gravity = 12;
   double _jumpForce = 300;
   double _terminalYVelocity = 200;
+  double fixedDeltaTime = 1 / 60;
+  double accumulatedTime = 0;
 
   static const Duration _dur = Duration(milliseconds: 350); //stepTime(50 milisec) * 7 stepFrames = 350
 
@@ -46,7 +48,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   Vector2 down = Vector2(0, 1);
   Vector2 right = Vector2(1, 0);
   Vector2 left = Vector2(-1, 0);
-  late Vector2 spawnLocation;
+  late Vector2 spawnLocation; // playerSpawnLocation
 
   late final SpriteAnimation appearAnime;
   late final SpriteAnimation idleAnime;
@@ -68,10 +70,15 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   void update(double dt) {
-    if (!_dead && !hasBeatLevel) {
-      _updateAnimation();
-      _updatePlayerMovement(dt);
+    accumulatedTime += dt; // this evens out perform on all diff platforms.
+    while (accumulatedTime >= fixedDeltaTime) {
+      if (!_dead && !hasBeatLevel) {
+        _updateAnimation();
+        _updatePlayerMovement(dt);
+      }
+      accumulatedTime -= fixedDeltaTime;
     }
+
     super.update(dt);
   }
 
