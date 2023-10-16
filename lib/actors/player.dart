@@ -219,11 +219,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   void _beatLevel() {
     hasBeatLevel = true;
-    if (scale.x > 0) {
-      position = position - Vector2.all(32);
-    } else if (scale.x < 0) {
-      position = position + Vector2(32, -32);
-    }
     current = PlayerState.disappear;
     velocity = Vector2.zero(); // this doesn't do anything/work.
     Future.delayed(_dur, () {
