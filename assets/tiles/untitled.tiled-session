@@ -11,14 +11,14 @@
     "fileStates": {
         "Desert Plain.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 0.9259,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 834.3233610541095,
-                "y": 195.48547359326065
+                "x": 639.9179177016956,
+                "y": 184.6851711847932
             }
         },
         "Grass Land copy.tmx": {
@@ -36,13 +36,13 @@
             "scale": 1.03,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 330.58252427184465,
-                "y": 169.90291262135923
+                "x": 320.87378640776694,
+                "y": 184.46601941747574
             }
         },
         "Ice Mountain.tmx": {
             "scale": 1.0582,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 337.8378378378378,
                 "y": 175.77017577017577

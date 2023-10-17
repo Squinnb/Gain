@@ -6,10 +6,9 @@ import 'package:gain/game.dart';
 
 class Saw extends SpriteAnimationComponent with HasGameRef<Gain> {
   bool isVertical;
-  final double offPositive;
-  final double offNegative;
-  Saw({Vector2? position, Vector2? size, required this.isVertical, required this.offNegative, required this.offPositive})
-      : super(position: position, size: size);
+  final double plusOffset;
+  final double minusOffset;
+  Saw({super.position, super.size, required this.isVertical, required this.minusOffset, required this.plusOffset});
 
   static const double spinSpeed = 0.07;
   static const double moveSpeed = 50;
@@ -22,11 +21,11 @@ class Saw extends SpriteAnimationComponent with HasGameRef<Gain> {
   FutureOr<void> onLoad() {
     priority = -1;
     if (isVertical) {
-      negRange = position.y - offNegative * tileSize;
-      posRange = position.y + offPositive * tileSize;
+      negRange = position.y - minusOffset * tileSize;
+      posRange = position.y + plusOffset * tileSize;
     } else {
-      negRange = position.x - offNegative * tileSize;
-      posRange = position.x + offPositive * tileSize;
+      negRange = position.x - minusOffset * tileSize;
+      posRange = position.x + plusOffset * tileSize;
     }
     animation = _createSpriteAnime();
     add(CircleHitbox());

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
+import 'package:gain/components/radish.dart';
 import 'package:gain/components/wallpaper.dart';
 import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
@@ -39,16 +40,25 @@ class Level extends World with HasGameRef {
           Fruit f = Fruit(fruitType: spawnPoint.name, position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
           add(f);
         } else if (spawnPoint.class_ == "Saw") {
-          double offNegative = spawnPoint.properties.getValue("offNegative");
-          double offPositive = spawnPoint.properties.getValue("offPositive");
+          double minusOffset = spawnPoint.properties.getValue("offNegative");
+          double plusOffset = spawnPoint.properties.getValue("offPositive");
           bool isVertical = spawnPoint.properties.getValue("isVertical");
           Saw s = Saw(
               isVertical: isVertical,
-              offNegative: offNegative,
-              offPositive: offPositive,
+              minusOffset: minusOffset,
+              plusOffset: plusOffset,
               position: Vector2(spawnPoint.x, spawnPoint.y),
               size: Vector2(spawnPoint.width, spawnPoint.height));
           add(s);
+        } else if (spawnPoint.class_ == "Radish") {
+          double minusOffset = spawnPoint.properties.getValue("offNegative");
+          double plusOffset = spawnPoint.properties.getValue("offPositive");
+          Radish r = Radish(
+              minusOffset: minusOffset,
+              plusOffset: plusOffset,
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height));
+          add(r);
         } else if (spawnPoint.class_ == "Checkpoint") {
           Checkpoint checkp = Checkpoint(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
           add(checkp);

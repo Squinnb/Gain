@@ -4,9 +4,11 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
+import 'package:gain/components/radish.dart';
 import 'package:gain/components/saw.dart';
 import 'package:gain/game.dart';
 import 'package:gain/levels/platform.dart';
@@ -98,6 +100,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     velocity.y += _gravity;
     if (_jumpPressed) {
       if (_isOnGround) {
+        if (game.playSoundEffect) {
+          FlameAudio.play("jump1.wav", volume: game.volume);
+        }
         velocity.y = -_jumpForce;
         _isOnGround = false;
       }
@@ -157,6 +162,15 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       _die();
     } else if (other is Checkpoint) {
       _beatLevel();
+      FlameAudio.play("synth1.wav", volume: game.volume);
+    } else if (other is Radish) {
+      bool radishStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
+      if (radishStomp) {
+        other.die();
+        velocity.y = -_jumpForce;
+      } else {
+        _die();
+      }
     }
     super.onCollisionStart(intersectionPoints, other);
   }
@@ -213,9 +227,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   void _die() async {
     _dead = true;
+    FlameAudio.play("hitHurt.wav", volume: game.volume);
     current = PlayerState.hit;
     await animationTicker?.completed;
-    animationTicker?.reset();
+    // animationTicker?.reset();
 
     // respawn
     scale.x = 1; // face to the right

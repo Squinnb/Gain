@@ -9,7 +9,9 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   late CameraComponent cam;
   Player player = Player();
   List<String> levelNames = ["Grass Land", "Desert Plain", "Ice Mountain"];
-  int _levelIndex = 0;
+  int _levelIndex = 1;
+  double volume = 1.0;
+  bool playSoundEffect = true;
 
   @override
   FutureOr<void> onLoad() async {
@@ -24,6 +26,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
       _levelIndex++;
       _loadLevel();
     } else {
+      _levelIndex = 0;
       // You beat the game
     }
   }

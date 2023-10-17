@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flame: ^1.9.1
   flame_tiled: ^1.14.1
+  flame_audio: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,9 @@ flutter:
     - assets/images/Traps/Saw/
     - assets/images/Main Characters/Pink Man/
     - assets/images/Main Characters/
+    - assets/images/Enemies/Radish/
+    - assets/audio/
+
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
