@@ -244,16 +244,18 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     Future.delayed(_dur, () => _dead = false);
   }
 
-  void _beatLevel() {
+  void _beatLevel() async {
     hasBeatLevel = true;
     current = PlayerState.disappear;
+    await animationTicker?.completed;
+    animationTicker?.reset();
+    xDir = 0;
     velocity = Vector2.zero(); // this doesn't do anything/work.
-    Future.delayed(_dur, () {
-      hasBeatLevel = false;
-      removeFromParent();
-      Future.delayed(const Duration(seconds: 3), () {
-        game.loadNextLevel();
-      });
+    removeFromParent();
+    hasBeatLevel = false;
+
+    Future.delayed(const Duration(seconds: 3), () {
+      game.loadNextLevel();
     });
   }
 }
