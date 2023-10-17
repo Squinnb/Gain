@@ -9,7 +9,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   late CameraComponent cam;
   Player player = Player();
   List<String> levelNames = ["Grass Land", "Desert Plain", "Ice Mountain"];
-  int _levelIndex = 1;
+  int _levelIndex = 0;
   double volume = 1.0;
   bool playSoundEffect = true;
 
@@ -27,13 +27,14 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
       _loadLevel();
     } else {
       _levelIndex = 0;
+      _loadLevel();
       // You beat the game
     }
   }
 
   void _loadLevel() {
     Level world = Level(levelName: levelNames[_levelIndex], player: player);
-    cam = CameraComponent.withFixedResolution(world: world, width: 640, height: 320);
+    cam = CameraComponent(world: world);
     cam.follow(player);
     addAll([world, cam]);
   }

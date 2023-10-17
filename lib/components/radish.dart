@@ -22,7 +22,6 @@ class Radish extends SpriteAnimationGroupComponent with HasGameRef<Gain> {
   double negRange = 0;
 
   bool wasJumpedOn(double playerBottom) {
-    print("playerBottom: $playerBottom, top3rd ${y + (height / 3)}");
     return playerBottom < (y + (height / 3));
   }
 
@@ -53,6 +52,7 @@ class Radish extends SpriteAnimationGroupComponent with HasGameRef<Gain> {
     FlameAudio.play("landOnEnemy.wav", volume: game.volume);
     current = RadishState.hit;
     await animationTicker?.completed;
+    animationTicker?.reset();
     removeFromParent();
   }
 
