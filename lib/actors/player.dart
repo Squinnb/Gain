@@ -253,7 +253,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     velocity = Vector2.zero(); // this doesn't do anything/work.
     removeFromParent();
     hasBeatLevel = false;
-
     Future.delayed(const Duration(seconds: 3), () {
       game.loadNextLevel();
     });

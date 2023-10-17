@@ -5,11 +5,11 @@ import 'package:flame/components.dart';
 
 class Platform extends PositionComponent with CollisionCallbacks {
   bool isPassable;
-  Platform({required Vector2 position, required Vector2 size, this.isPassable = false}) : super(position: position, size: size);
+  Platform({super.position, super.size, this.isPassable = false});
 
   @override
   FutureOr<void> onLoad() {
-    add(RectangleHitbox(collisionType: CollisionType.passive));
+    add(RectangleHitbox(size: Vector2(size.x, (size.y / 3)), collisionType: CollisionType.passive));
     return super.onLoad();
   }
 }

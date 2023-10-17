@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="57">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="58">
  <tileset firstgid="1" source="gain.tsx"/>
  <layer id="1" name="Background" width="40" height="23">
   <data encoding="csv">
@@ -42,7 +42,7 @@
   <object id="55" name="Orange" type="Fruit" x="512" y="240" width="32" height="32"/>
   <object id="56" type="Checkpoint" x="560" y="176" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="3" name="Collisions">
+ <objectgroup id="3" name="Collisions" visible="0">
   <object id="17" x="48" y="16" width="16" height="320"/>
   <object id="18" x="64" y="32" width="512"/>
   <object id="20" x="64" y="320" width="512" height="16"/>
@@ -60,5 +60,6 @@
   <object id="52" x="608" y="64" width="16" height="112"/>
   <object id="53" x="592" y="48" width="16" height="48"/>
   <object id="54" x="576" y="16" width="16" height="64"/>
+  <object id="57" x="64" y="272" width="512" height="48"/>
  </objectgroup>
 </map>
