@@ -9,7 +9,7 @@ class Platform extends PositionComponent with CollisionCallbacks {
 
   @override
   FutureOr<void> onLoad() {
-    add(RectangleHitbox(size: Vector2(size.x, (size.y / 3)), collisionType: CollisionType.passive));
+    add(RectangleHitbox(size: Vector2(size.x, isPassable ? (size.y / 3) : size.y), collisionType: CollisionType.passive));
     return super.onLoad();
   }
 }
