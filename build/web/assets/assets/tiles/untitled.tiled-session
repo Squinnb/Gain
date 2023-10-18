@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Ice Mountain.tmx",
+    "activeFile": "Grass Land.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -11,14 +11,26 @@
     "fileStates": {
         "Desert Plain.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 0.9259,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 834.3233610541095,
-                "y": 195.48547359326065
+                "x": 445.5124743492818,
+                "y": 223.56625985527597
+            }
+        },
+        "Desert Plain2.tmx": {
+            "expandedObjectLayers": [
+                3,
+                2
+            ],
+            "scale": 1.034609375,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 336.84210526315786,
+                "y": 178.81144755720004
             }
         },
         "Grass Land copy.tmx": {
@@ -31,21 +43,25 @@
         },
         "Grass Land.tmx": {
             "expandedObjectLayers": [
+                3,
                 2
             ],
             "scale": 1.03,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 330.58252427184465,
-                "y": 169.90291262135923
+                "y": 171.84466019417476
             }
         },
         "Ice Mountain.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
             "scale": 1.0582,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 337.8378378378378,
-                "y": 175.77017577017577
+                "x": 320.8278208278208,
+                "y": 184.27518427518427
             }
         },
         "gain.tsx": {
@@ -92,10 +108,10 @@
     "project": "untitled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "gain.tsx",
-        "Grass Land.tmx",
         "Desert Plain.tmx",
+        "gain.tsx",
         "Ice Mountain.tmx",
+        "Grass Land.tmx",
         "Grass Land copy.tmx",
         "level-02.tmx",
         "level-01.tmx"
