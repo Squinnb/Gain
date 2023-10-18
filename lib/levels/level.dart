@@ -68,20 +68,14 @@ class Level extends World with HasGameRef {
   }
 
   void _createPlatforms() {
+    player.platforms.clear();
     final collisionLayer = level.tileMap.getLayer<ObjectGroup>("Collisions");
     if (collisionLayer != null) {
       for (final collision in collisionLayer.objects) {
-        if (collision.class_ == "Passable") {
-          // need to change class name
-          final platform = Platform(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPassable: true);
-          add(platform);
-        } else {
-          final block = Platform(
-            position: Vector2(collision.x, collision.y),
-            size: Vector2(collision.width, collision.height),
-          );
-          add(block);
-        }
+        bool isPassable = collision.class_ == "Passable";
+        Platform platform = Platform(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPassable: isPassable);
+        add(platform);
+        player.platforms.add(platform);
       }
     }
   }

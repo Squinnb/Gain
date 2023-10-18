@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -34,7 +35,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double xDir = 0.0;
   double _moveSpeed = 100;
   double _gravity = 12;
-  double _jumpForce = 250;
+  double _jumpForce = 350;
   double _terminalYVelocity = 200;
   double fixedDeltaTime = 1 / 60;
   double accumulatedTime = 0;
@@ -46,11 +47,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool _dead = false;
   bool hasBeatLevel = false;
 
+  List<Platform> platforms = [];
+
   Vector2 velocity = Vector2.zero();
-  Vector2 up = Vector2(0, -1);
-  Vector2 down = Vector2(0, 1);
-  Vector2 right = Vector2(1, 0);
-  Vector2 left = Vector2(-1, 0);
   late Vector2 spawnLocation; // playerSpawnLocation
 
   late final SpriteAnimation appearAnime;
@@ -63,7 +62,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    add(CircleHitbox(
+    add(RectangleHitbox(
       collisionType: CollisionType.active,
     ));
     _loadAllAnimations();
@@ -78,6 +77,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     if (!_dead && !hasBeatLevel) {
       _updateAnimation();
       _updatePlayerMovement(dt);
+      _handleXPlatformCollision();
+      _applyGravity(dt);
+      _handleYPlatformCollision();
     }
     //accumulatedTime -= fixedDeltaTime;
     //}
@@ -96,63 +98,24 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     return super.onKeyEvent(event, keysPressed);
   }
 
-  void _updatePlayerMovement(double dt) {
-    velocity.x = xDir * _moveSpeed;
+  void _applyGravity(double dt) {
     velocity.y += _gravity;
-    if (_jumpPressed) {
-      if (_isOnGround) {
-        if (game.playSoundEffect) {
-          FlameAudio.play("jump1.wav", volume: game.volume);
-        }
-        velocity.y = -_jumpForce;
-        _isOnGround = false;
-      }
-      _jumpPressed = false;
-    }
     velocity.y = velocity.y.clamp(-_jumpForce, _terminalYVelocity);
-    position += (velocity * dt);
-    // position.clamp(_minClamp, _maxClamp);
+    position.y += velocity.y * dt;
   }
 
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Platform) {
-      if (intersectionPoints.length == 2) {
-        Vector2 pointA = intersectionPoints.elementAt(0);
-        Vector2 pointB = intersectionPoints.elementAt(1);
-        Vector2 mid = (pointA + pointB) / 2;
-        Vector2 collisionVect = absoluteCenter - mid;
-        double difDist = (size.x / 2) - collisionVect.length;
-        collisionVect.normalize();
-        position += collisionVect.scaled(difDist);
-        // if (!other.isPassable) {
-        //   bool rightCollide = (position.x + width) > other.x; //mid.x == other.x;
-        //   bool leftCollide = (position.x - width) < other.x + other.width; //mid.x == other.x + other.width;
-        //   bool topCollide = mid.y == other.y + other.height;
-        //   if (velocity.x > 0 && rightCollide && mid.y == position.y) {
-        //     velocity.x = 0;
-        //     position.x = other.x - (width / 2);
-        //   } else if (velocity.x < 0 && leftCollide && mid.y == position.y) {
-        //     velocity.x = 0;
-        //     position.x = (other.x + other.width) + (width / 2);
-        //   }
-        //   if (velocity.y < 0 && topCollide) {
-        //     velocity.y = 0;
-        //     position.y = other.y + other.height + (height / 2);
-        //   }
-        // }
-        // bool bottomCollide = (position.y + height) > other.y; //mid.y == other.y;
-        // if (velocity.y > 0 && bottomCollide) {
-        //   velocity.y = 0;
-        //   position.y = other.y - (height / 2);
-        //   _isOnGround = true;
-        // }
-        if (up.dot(collisionVect) > 0.9) {
-          _isOnGround = true;
-        }
-      }
-    }
-    super.onCollision(intersectionPoints, other);
+  void _jump() {
+    FlameAudio.play("jump1.wav", volume: game.volume);
+    velocity.y = -_jumpForce;
+    _isOnGround = false;
+    _jumpPressed = false;
+  }
+
+  void _updatePlayerMovement(double dt) {
+    if (_jumpPressed && _isOnGround) _jump();
+    velocity.x = xDir * _moveSpeed;
+    position.x += (velocity.x * dt);
+    // position.clamp(_minClamp, _maxClamp);
   }
 
   @override
@@ -257,5 +220,41 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     Future.delayed(const Duration(seconds: 3), () {
       game.loadNextLevel();
     });
+  }
+
+  void _handleXPlatformCollision() {
+    for (Platform other in platforms) {
+      Rect platformRect = other.toRect();
+      Rect playerRect = toRect();
+      if (playerRect.overlaps(platformRect)) {
+        if (velocity.x > 0 && !other.isPassable) {
+          velocity.x = 0;
+          position.x = other.x - (width / 2);
+        } else if (velocity.x < 0 && !other.isPassable) {
+          velocity.x = 0;
+          position.x = (other.x + other.width) + (width / 2);
+        }
+        break; // think this is ok
+      }
+    }
+  }
+
+  void _handleYPlatformCollision() {
+    for (Platform other in platforms) {
+      Rect platformRect = other.toRect();
+      Rect playerRect = toRect();
+      if (playerRect.overlaps(platformRect)) {
+        if (velocity.y < 0 && !other.isPassable) {
+          velocity.y = 0;
+          position.y = other.y + other.height + (height / 2);
+        }
+        if (velocity.y > 0) {
+          velocity.y = 0;
+          position.y = other.y - (height / 2);
+          _isOnGround = true;
+        }
+        break; // think this is ok
+      }
+    }
   }
 }

@@ -8,9 +8,9 @@ import 'package:gain/levels/level.dart';
 class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection {
   late CameraComponent cam;
   Player player = Player();
-  List<String> levelNames = ["Grass Land", "Desert Plain", "Ice Mountain"];
+  List<String> levelNames = ["Grass Land", "Desert Plain2", "Ice Mountain"];
   int _levelIndex = 0;
-  double volume = 1.0;
+  double volume = 0.5;
   bool playSoundEffect = true;
 
   @override
