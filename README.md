@@ -1,17 +1,17 @@
-# gain
+# Marvington Game
 
-A new Flutter project.
+A platformer game using Flutters' game engine, Flame.
 
-## Getting Started
+### Resources
 
-This project is a starting point for a Flutter application.
+A few resources I used for platformer style games in Flame:
+- [One: ]([https://docs.flutter.dev/get-started/codelab](https://hackernoon.com/using-collision-detection-to-make-your-game-character-jump))
+- [Spellthorn: ]([https://www.youtube.com/playlist?list=PLRRATgFqhVCh8qD7xmaSbwG1vfaCddvCM])
 
-A few resources to get you started if this is your first Flutter project:
 
+A few resources for Flutter:
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [online documentation](https://docs.flutter.dev/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# game
+
