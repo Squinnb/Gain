@@ -7,7 +7,7 @@ import 'package:gain/game.dart';
 
 class Fruit extends SpriteAnimationComponent with HasGameRef<Gain> {
   String fruitType;
-  Fruit({this.fruitType = "Cherries", Vector2? position, Vector2? size}) : super(position: position, size: size);
+  Fruit({this.fruitType = "Cherries", super.position, super.size});
 
   final double stepTime = 0.05;
   bool collected = false;

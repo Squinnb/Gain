@@ -7,7 +7,7 @@ import 'package:gain/game.dart';
 
 class WallPaper extends ParallaxComponent<Gain> with HasGameRef<Gain> {
   String color;
-  WallPaper({Vector2? position, this.color = "Gray"}) : super(position: position);
+  WallPaper({super.position, this.color = "Gray"});
 
   FutureOr<void> onLoad() async {
     priority = -2;

@@ -6,7 +6,7 @@ import 'package:gain/actors/player.dart';
 import 'package:gain/game.dart';
 
 class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCallbacks {
-  Checkpoint({Vector2? position, Vector2? size}) : super(position: position, size: size);
+  Checkpoint({super.position, super.size});
   double stepTime = 0.05;
 
   @override

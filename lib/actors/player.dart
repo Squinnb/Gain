@@ -18,9 +18,10 @@ enum PlayerState { appear, idle, running, jumping, falling, disappear, hit }
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
   Player({
-    Vector2? position,
+    super.position,
+    super.anchor = Anchor.center,
     this.character = "Pink Man",
-  }) : super(position: position, anchor: Anchor.center);
+  });
   // {
   // late Vector2 _minClamp;
   // late Vector2 _maxClamp;
@@ -33,7 +34,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double xDir = 0.0;
   double _moveSpeed = 100;
   double _gravity = 12;
-  double _jumpForce = 300;
+  double _jumpForce = 250;
   double _terminalYVelocity = 200;
   double fixedDeltaTime = 1 / 60;
   double accumulatedTime = 0;
