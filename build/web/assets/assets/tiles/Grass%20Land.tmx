@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="58">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="59">
  <tileset firstgid="1" source="gain.tsx"/>
  <layer id="1" name="Background" width="40" height="23">
   <data encoding="csv">
@@ -41,6 +41,12 @@
   </object>
   <object id="55" name="Orange" type="Fruit" x="512" y="240" width="32" height="32"/>
   <object id="56" type="Checkpoint" x="560" y="176" width="64" height="64"/>
+  <object id="58" type="Bird" x="512" y="176" width="32" height="32">
+   <properties>
+    <property name="offNegative" type="float" value="12"/>
+    <property name="offPositive" type="float" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="3" name="Collisions" visible="0">
   <object id="17" x="48" y="16" width="16" height="320"/>
