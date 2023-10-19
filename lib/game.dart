@@ -12,6 +12,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   int _levelIndex = 0;
   double volume = 0.5;
   bool playSoundEffect = true;
+  late Level currLevel;
 
   @override
   FutureOr<void> onLoad() async {
@@ -34,7 +35,8 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
 
   void _loadLevel() {
     Level world = Level(levelName: levelNames[_levelIndex], player: player);
-    cam = CameraComponent(world: world);
+    currLevel = world;
+    cam = CameraComponent.withFixedResolution(world: world, width: 700, height: 340);
     cam.follow(player);
     addAll([world, cam]);
   }

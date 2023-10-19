@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gain/actors/player.dart';
+import 'package:gain/components/Bird.dart';
 import 'package:gain/components/radish.dart';
 import 'package:gain/components/wallpaper.dart';
 import 'package:gain/components/checkpoint.dart';
@@ -59,8 +60,18 @@ class Level extends World with HasGameRef {
               position: Vector2(spawnPoint.x, spawnPoint.y),
               size: Vector2(spawnPoint.width, spawnPoint.height));
           add(r);
+        } else if (spawnPoint.class_ == "Bird") {
+          double minusOffset = spawnPoint.properties.getValue("offNegative");
+          double plusOffset = spawnPoint.properties.getValue("offPositive");
+          Bird b = Bird(
+              minusOffset: minusOffset,
+              plusOffset: plusOffset,
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height));
+          add(b);
         } else if (spawnPoint.class_ == "Checkpoint") {
           Checkpoint checkp = Checkpoint(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
+
           add(checkp);
         }
       }

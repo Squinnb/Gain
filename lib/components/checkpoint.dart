@@ -17,15 +17,17 @@ class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, Collisi
     return super.onLoad();
   }
 
+  void _raiseFlag() async {
+    animation = _createSpriteAnime(name: "(Flag Out)", amount: 26);
+    await animationTicker?.completed;
+    animation = _createSpriteAnime(name: "(Flag Idle)", amount: 10);
+    await animationTicker?.completed;
+  }
+
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) async {
     if (other is Player) {
-      animation = _createSpriteAnime(name: "(Flag Out)", amount: 26);
-      await animationTicker?.completed;
-      other.velocity = Vector2.zero();
-      animation = _createSpriteAnime(name: "(Flag Idle)", amount: 10);
-      await animationTicker?.completed;
-      other.velocity = Vector2.zero();
+      _raiseFlag();
     }
     super.onCollisionStart(intersectionPoints, other);
   }

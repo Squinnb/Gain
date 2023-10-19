@@ -30,8 +30,8 @@
  </layer>
  <objectgroup id="2" name="SpawnPoints" class="Player">
   <object id="6" name="Player" type="Player" x="144" y="192" width="32" height="32"/>
-  <object id="40" name="Cherries" type="Fruit" x="352" y="160" width="32" height="32"/>
-  <object id="42" name="Kiwi" type="Fruit" x="416" y="208" width="32" height="32"/>
+  <object id="40" name="Cherries" type="Fruit" x="368" y="128" width="32" height="32"/>
+  <object id="42" name="Kiwi" type="Fruit" x="448" y="208" width="32" height="32"/>
   <object id="45" type="Saw" x="336" y="256" width="32" height="32">
    <properties>
     <property name="isVertical" type="bool" value="false"/>

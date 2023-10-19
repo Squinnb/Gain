@@ -7,6 +7,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:gain/components/Bird.dart';
 import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
 import 'package:gain/components/radish.dart';
@@ -62,10 +63,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    add(RectangleHitbox(
-      collisionType: CollisionType.active,
-    ));
     _loadAllAnimations();
+    add(RectangleHitbox(position: Vector2(6, 4), collisionType: CollisionType.active, size: Vector2(20, 28)));
     debugMode = true;
     return super.onLoad();
   }
@@ -132,6 +131,14 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       if (radishStomp) {
         other.die();
         velocity.y = -_jumpForce;
+      } else {
+        _die();
+      }
+    } else if (other is Bird) {
+      bool birdStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
+      if (birdStomp) {
+        other.die();
+        velocity.y = -_jumpForce - 10;
       } else {
         _die();
       }
