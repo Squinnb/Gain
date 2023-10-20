@@ -7,13 +7,14 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
-import 'package:gain/components/Bird.dart';
+import 'package:gain/enemies/bird.dart';
 import 'package:gain/components/checkpoint.dart';
 import 'package:gain/components/fruit.dart';
-import 'package:gain/components/radish.dart';
-import 'package:gain/components/saw.dart';
+import 'package:gain/enemies/radish.dart';
+import 'package:gain/traps/saw.dart';
 import 'package:gain/game.dart';
 import 'package:gain/levels/platform.dart';
+import 'package:gain/traps/fire.dart';
 
 enum PlayerState { appear, idle, running, jumping, falling, disappear, hit }
 
@@ -64,7 +65,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
-    add(RectangleHitbox(position: Vector2(6, 4), collisionType: CollisionType.active, size: Vector2(20, 28)));
+    add(RectangleHitbox(collisionType: CollisionType.active));
     debugMode = true;
     return super.onLoad();
   }
@@ -121,7 +122,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Fruit) {
       other.collect();
-    } else if (other is Saw) {
+    } else if ((other is Saw) || (other is Fire)) {
       _die();
     } else if (other is Checkpoint) {
       _beatLevel();
@@ -218,6 +219,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void _beatLevel() async {
     hasBeatLevel = true;
     current = PlayerState.disappear;
+    game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -50);
     await animationTicker?.completed;
     animationTicker?.reset();
     xDir = 0;
@@ -256,9 +258,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
           position.y = other.y + other.height + (height / 2);
         }
         if (velocity.y > 0) {
-          velocity.y = 0;
-          position.y = other.y - (height / 2);
-          _isOnGround = true;
+          if ((other.isPassable && (position.y + (height / 3.0)) < other.y) || !other.isPassable) {
+            velocity.y = 0;
+            position.y = other.y - (height / 2);
+            _isOnGround = true;
+          }
         }
         break; // think this is ok
       }
