@@ -21,11 +21,11 @@ class Saw extends SpriteAnimationComponent with HasGameRef<Gain> {
   FutureOr<void> onLoad() {
     priority = -1;
     if (isVertical) {
-      negRange = position.y - minusOffset * tileSize;
-      posRange = position.y + plusOffset * tileSize;
+      negRange = position.y - (minusOffset * tileSize);
+      posRange = position.y + (plusOffset * tileSize);
     } else {
-      negRange = position.x - minusOffset * tileSize;
-      posRange = position.x + plusOffset * tileSize;
+      negRange = position.x - (minusOffset * tileSize);
+      posRange = position.x + (plusOffset * tileSize);
     }
     animation = _createSpriteAnime();
     add(CircleHitbox());

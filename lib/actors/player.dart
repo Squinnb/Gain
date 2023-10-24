@@ -67,7 +67,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   FutureOr<void> onLoad() {
     _loadAllAnimations();
     add(RectangleHitbox(position: Vector2(6, 4), collisionType: CollisionType.active, size: Vector2(20, 28)));
-    debugMode = true;
     return super.onLoad();
   }
 
@@ -123,11 +122,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Fruit) {
       other.collect();
-    } else if ((other is Saw) || (other is Fire)) {
+    } else if (other is Saw) {
+      _die();
+    } else if (other is Fire && other.isActive()) {
       _die();
     } else if (other is Checkpoint) {
       _beatLevel();
-      FlameAudio.play("synth1.wav", volume: game.volume);
+      FlameAudio.play("synth3.wav", volume: game.volume);
     } else if (other is Radish) {
       bool radishStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
       if (radishStomp) {
