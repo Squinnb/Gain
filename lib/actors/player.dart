@@ -36,8 +36,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double stepTime = 0.05;
   double xDir = 0.0;
   double _moveSpeed = 100;
-  double _gravity = 12;
-  double _jumpForce = 350;
+  double _gravity = 10;
+  double _jumpForce = 300;
   double _terminalYVelocity = 200;
   double fixedDeltaTime = 1 / 60;
   double accumulatedTime = 0;
@@ -46,6 +46,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   bool _jumpPressed = false;
   bool _isOnGround = true;
+
   bool _dead = false;
   bool hasBeatLevel = false;
 
@@ -65,24 +66,24 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
-    add(RectangleHitbox(collisionType: CollisionType.active));
+    add(RectangleHitbox(position: Vector2(6, 4), collisionType: CollisionType.active, size: Vector2(20, 28)));
     debugMode = true;
     return super.onLoad();
   }
 
   @override
   void update(double dt) {
-    //accumulatedTime += dt; // this evens out perform on all diff platforms.
-    //while (accumulatedTime >= fixedDeltaTime) {
-    if (!_dead && !hasBeatLevel) {
-      _updateAnimation();
-      _updatePlayerMovement(dt);
-      _handleXPlatformCollision();
-      _applyGravity(dt);
-      _handleYPlatformCollision();
+    accumulatedTime += dt; // this evens out perform on all diff platforms.
+    while (accumulatedTime >= fixedDeltaTime) {
+      if (!_dead && !hasBeatLevel) {
+        _updateAnimation();
+        _updatePlayerMovement(dt);
+        _handleXPlatformCollision();
+        _applyGravity(dt);
+        _handleYPlatformCollision();
+      }
+      accumulatedTime -= fixedDeltaTime;
     }
-    //accumulatedTime -= fixedDeltaTime;
-    //}
 
     super.update(dt);
   }
@@ -243,6 +244,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
           velocity.x = 0;
           position.x = (other.x + other.width) + (width / 2);
         }
+
         break; // think this is ok
       }
     }
@@ -258,7 +260,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
           position.y = other.y + other.height + (height / 2);
         }
         if (velocity.y > 0) {
-          if ((other.isPassable && (position.y + (height / 3.0)) < other.y) || !other.isPassable) {
+          if ((other.isPassable && (position.y + (height / 3)) < other.y) || !other.isPassable) {
             velocity.y = 0;
             position.y = other.y - (height / 2);
             _isOnGround = true;

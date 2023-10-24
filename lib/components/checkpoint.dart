@@ -13,7 +13,7 @@ class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, Collisi
   FutureOr<void> onLoad() {
     animation = _createSpriteAnime();
     add(RectangleHitbox(position: Vector2(18, 18), size: Vector2(12, 36), collisionType: CollisionType.passive));
-    debugMode = true;
+
     return super.onLoad();
   }
 

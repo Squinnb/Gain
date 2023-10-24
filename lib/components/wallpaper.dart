@@ -7,13 +7,14 @@ import 'package:gain/game.dart';
 
 class WallPaper extends ParallaxComponent<Gain> with HasGameRef<Gain> {
   String color;
-  WallPaper({super.position, this.color = "Gray"});
+  WallPaper({super.position, super.size, this.color = "Gray"});
 
+  @override
   FutureOr<void> onLoad() async {
-    priority = -2;
+    priority = -10;
     size = Vector2.all(64);
-    parallax = await gameRef
-        .loadParallax([ParallaxImageData("Background/$color.png")], baseVelocity: Vector2(0, -20), repeat: ImageRepeat.noRepeat, fill: LayerFill.none);
+    parallax =
+        await gameRef.loadParallax([ParallaxImageData("Background/$color.png")], baseVelocity: Vector2(0, 0), repeat: ImageRepeat.repeat, fill: LayerFill.none);
 
     return super.onLoad();
   }
