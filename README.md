@@ -1,12 +1,13 @@
 # Marvington Game
 
 A platformer game using Flutters' game engine, Flame.
+View here: https://squinnb.github.io/game/
 
 ### Resources
 
 A few resources I used for platformer style games in Flame:
-- [One: ]([https://docs.flutter.dev/get-started/codelab](https://hackernoon.com/using-collision-detection-to-make-your-game-character-jump))
-- [Spellthorn: ]([https://www.youtube.com/playlist?list=PLRRATgFqhVCh8qD7xmaSbwG1vfaCddvCM])
+- [One: ]((https://hackernoon.com/using-collision-detection-to-make-your-game-character-jump))
+- [Spellthorn: ](https://www.youtube.com/playlist?list=PLRRATgFqhVCh8qD7xmaSbwG1vfaCddvCM)
 
 
 A few resources for Flutter:
