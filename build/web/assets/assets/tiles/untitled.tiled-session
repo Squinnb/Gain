@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Grass Land.tmx",
+    "activeFile": "Desert Plain2.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -23,14 +23,14 @@
         },
         "Desert Plain2.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 1.01,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 319.3069306930693,
-                "y": 227.7227722772277
+                "x": 320.2970297029703,
+                "y": 185.14851485148512
             }
         },
         "Grass Land copy.tmx": {
@@ -43,29 +43,30 @@
         },
         "Grass Land.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 0.9401,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 330.28401233911285,
-                "y": 168.06722689075625
+                "x": 320.71056270609506,
+                "y": 184.0229762791192
             }
         },
         "Ice Mountain.tmx": {
             "expandedObjectLayers": [
+                2,
                 3
             ],
-            "scale": 1.0582,
-            "selectedLayer": 1,
+            "scale": 1.1075,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 337.8378378378378,
-                "y": 175.77017577017577
+                "x": 320.09029345372466,
+                "y": 184.19864559819413
             }
         },
         "gain.tsx": {
-            "scaleInDock": 1.5586,
+            "scaleInDock": 0.9268,
             "scaleInEditor": 1
         },
         "level-01.tmx": {
@@ -102,16 +103,17 @@
     "openFiles": [
         "gain.tsx",
         "Grass Land.tmx",
-        "Desert Plain.tmx",
+        "Desert Plain2.tmx",
         "Ice Mountain.tmx"
     ],
     "project": "untitled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Desert Plain.tmx",
         "gain.tsx",
-        "Ice Mountain.tmx",
         "Grass Land.tmx",
+        "Ice Mountain.tmx",
+        "Desert Plain2.tmx",
+        "Desert Plain.tmx",
         "Grass Land copy.tmx",
         "level-02.tmx",
         "level-01.tmx"
