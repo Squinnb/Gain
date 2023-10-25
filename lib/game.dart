@@ -9,7 +9,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   late CameraComponent cam;
   Player player = Player();
   List<String> levelNames = ["Grass Land", "Desert Plain2", "Ice Mountain"];
-  int _levelIndex = 0;
+  int _levelIndex = 2;
   double volume = 0.7;
   bool playSoundEffect = true;
   late Level currLevel;
