@@ -115,7 +115,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     if (_jumpPressed && _isOnGround) _jump();
     velocity.x = xDir * _moveSpeed;
     position.x += (velocity.x * dt);
-
     // position.clamp(_minClamp, _maxClamp);
   }
 
