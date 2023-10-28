@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Desert Plain2.tmx",
+    "activeFile": "Ice Mountain.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -23,11 +23,11 @@
         },
         "Desert Plain2.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 1.01,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 320.2970297029703,
                 "y": 185.14851485148512
@@ -43,8 +43,8 @@
         },
         "Grass Land.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 0.9401,
             "selectedLayer": 1,
@@ -55,13 +55,13 @@
         },
         "Ice Mountain.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 1.1075,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 320.09029345372466,
+                "x": 320.99322799097075,
                 "y": 184.19864559819413
             }
         },
@@ -111,8 +111,8 @@
     "recentFiles": [
         "gain.tsx",
         "Grass Land.tmx",
-        "Ice Mountain.tmx",
         "Desert Plain2.tmx",
+        "Ice Mountain.tmx",
         "Desert Plain.tmx",
         "Grass Land copy.tmx",
         "level-02.tmx",

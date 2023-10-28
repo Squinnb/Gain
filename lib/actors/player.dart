@@ -23,7 +23,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   Player({
     super.position,
     super.anchor = Anchor.center,
-    this.character = "Pink Man",
+    this.character = "Marv",
   });
   // {
   // late Vector2 _minClamp;
@@ -42,11 +42,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double fixedDeltaTime = 1 / 60;
   double accumulatedTime = 0;
 
-  static const Duration _dur = Duration(milliseconds: 350); //stepTime(50 milisec) * 7 stepFrames = 350
+  static const Duration _dur = Duration(milliseconds: 350);
 
   bool _jumpPressed = false;
   bool _isOnGround = true;
-
   bool _dead = false;
   bool hasBeatLevel = false;
 
@@ -54,14 +53,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   Vector2 velocity = Vector2.zero();
   late Vector2 spawnLocation; // playerSpawnLocation
-
-  late final SpriteAnimation appearAnime;
-  late final SpriteAnimation idleAnime;
-  late final SpriteAnimation runningAnime;
-  late final SpriteAnimation jumpAnime;
-  late final SpriteAnimation fallAnime;
-  late final SpriteAnimation disappearAnime;
-  late final SpriteAnimation hitAnime;
 
   @override
   FutureOr<void> onLoad() {
@@ -83,7 +74,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       }
       accumulatedTime -= fixedDeltaTime;
     }
-
     super.update(dt);
   }
 
@@ -151,7 +141,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   }
 
   SpriteAnimation _spriteAnimation(String state, int amount) {
-    String cacheUrl = "Main Characters/$character/$state (32x32).png";
+    String cacheUrl = "Marvington/Marv $state.png";
     double txtSz = 32;
     if (state == "Disappearing" || state == "Appearing") {
       cacheUrl = "Main Characters/$state (96x96).png";
@@ -168,13 +158,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   }
 
   void _loadAllAnimations() {
-    idleAnime = _spriteAnimation("Idle", 11);
-    runningAnime = _spriteAnimation("Run", 12);
-    jumpAnime = _spriteAnimation("Jump", 1);
-    fallAnime = _spriteAnimation("Fall", 1);
-    disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
-    appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
-    hitAnime = _spriteAnimation("Hit", 7)..loop = false;
+    SpriteAnimation idleAnime = _spriteAnimation("Idle", 6);
+    SpriteAnimation runningAnime = _spriteAnimation("Run", 4);
+    SpriteAnimation jumpAnime = _spriteAnimation("Jump", 1);
+    SpriteAnimation fallAnime = _spriteAnimation("Fall", 1);
+    SpriteAnimation disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
+    SpriteAnimation appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
+    SpriteAnimation hitAnime = _spriteAnimation("Hit", 4)..loop = false;
     animations = {
       PlayerState.idle: idleAnime,
       PlayerState.running: runningAnime,
@@ -205,7 +195,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     FlameAudio.play("hitHurt.wav", volume: game.volume);
     current = PlayerState.hit;
     await animationTicker?.completed;
-    // animationTicker?.reset();
 
     // respawn
     scale.x = 1; // face to the right
