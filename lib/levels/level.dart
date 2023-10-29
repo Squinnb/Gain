@@ -119,7 +119,7 @@ class Level extends World with HasGameRef {
     Layer? background = level.tileMap.getLayer("Background");
     if (background != null) {
       String? bgColor = background.properties.getValue("BackgroundColor");
-      wallPaper = WallPaper(color: 'Gray', position: Vector2(0, 0));
+      wallPaper = WallPaper(color: 'Brown', position: Vector2(0, 0));
       add(wallPaper);
     }
   }

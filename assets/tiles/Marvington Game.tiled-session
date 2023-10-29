@@ -1,0 +1,72 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Blue World One.tmx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "Blue World One.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 1.0822,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 266.12456107928296,
+                "y": 129.36610608020698
+            }
+        },
+        "Desert Plain2.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.874296875,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 320.8292377803592,
+                "y": 184.14797605218476
+            }
+        },
+        "Grass Land.tmx": {
+            "scale": 0.8683593749999999,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 320.7197480881692,
+                "y": 184.25551057130002
+            }
+        },
+        "Marvington Terrain.tsx": {
+            "scaleInDock": 2.8067,
+            "scaleInEditor": 4.71
+        },
+        "gain.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "/Users/squinnb/Documents/Animations/Terrain",
+    "map.height": 20,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 40,
+    "openFiles": [
+        "Marvington Terrain.tsx",
+        "Blue World One.tmx"
+    ],
+    "project": "Marvington Game.tiled-project",
+    "recentFiles": [
+        "Marvington Terrain.tsx",
+        "Blue World One.tmx",
+        "Desert Plain2.tmx",
+        "Grass Land.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
