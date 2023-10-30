@@ -8,7 +8,7 @@ import '/levels/level.dart';
 class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection {
   late CameraComponent cam;
   Player player = Player();
-  List<String> levelNames = ["Blue World One", "Blue World One", "Blue World One"];
+  List<String> levelNames = ["Blue World One", "Blue World Two", "Blue World Three"];
   int _levelIndex = 0;
   double volume = 0.7;
   bool playSoundEffect = true;

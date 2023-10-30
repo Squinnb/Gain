@@ -10,14 +10,14 @@
     "fileStates": {
         "Blue World One.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 1.0822,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 370.0794677508778,
-                "y": 129.36610608020698
+                "x": 402.42099427092955,
+                "y": 155.23932729624838
             }
         },
         "Desert Plain2.tmx": {
@@ -47,7 +47,7 @@
             "scaleInDock": 1
         }
     },
-    "last.imagePath": "/Users/squinnb/Documents/Animations/Terrain",
+    "last.imagePath": "/Users/squinnb/Desktop/gain/assets/images/Terrain",
     "map.height": 20,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
