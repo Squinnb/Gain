@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/painting.dart';
-import 'package:gain/game.dart';
+import '/game.dart';
 
 class WallPaper extends ParallaxComponent<Gain> with HasGameRef<Gain> {
   String color;

@@ -1,7 +1,8 @@
 # Marvington Game
 
-##A platformer game using Flutters' game engine, Flame.
-####View working demo here: https://squinnb.github.io/game/
+A platformer game using Flutters' game engine, Flame.
+The main Character is my old dog(PBUH) Marvington.
+View working demo here: https://squinnb.github.io/game/
 
 ### Resources
 

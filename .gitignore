@@ -9,7 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
-.metadata
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -30,8 +30,7 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/build/ios/
-/build/macos/
+/build/
 
 # Symbolication related
 app.*.symbols

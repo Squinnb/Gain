@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:gain/game.dart';
+import '/game.dart';
 
 enum FireState { off, on, start }
 

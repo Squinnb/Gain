@@ -10,13 +10,13 @@
     "fileStates": {
         "Blue World One.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 1.0822,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 266.12456107928296,
+                "x": 370.0794677508778,
                 "y": 129.36610608020698
             }
         },

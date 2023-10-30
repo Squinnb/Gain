@@ -7,14 +7,14 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
-import 'package:gain/enemies/bird.dart';
-import 'package:gain/components/checkpoint.dart';
-import 'package:gain/components/fruit.dart';
-import 'package:gain/enemies/radish.dart';
-import 'package:gain/traps/saw.dart';
-import 'package:gain/game.dart';
-import 'package:gain/levels/platform.dart';
-import 'package:gain/traps/fire.dart';
+import '/enemies/bird.dart';
+import '/components/checkpoint.dart';
+import '/components/fruit.dart';
+import '/enemies/radish.dart';
+import '/traps/saw.dart';
+import '/game.dart';
+import '/levels/platform.dart';
+import '/traps/fire.dart';
 
 enum PlayerState { appear, idle, running, jumping, falling, disappear, hit }
 
