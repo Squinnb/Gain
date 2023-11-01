@@ -100,7 +100,9 @@ class Level extends World with HasGameRef {
     if (collisionLayer != null) {
       for (final collision in collisionLayer.objects) {
         bool isPassable = collision.class_ == "Passable";
-        Platform platform = Platform(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPassable: isPassable);
+        bool isLethal = collision.class_ == "Lethal";
+        Platform platform =
+            Platform(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPassable: isPassable, isLethal: isLethal);
         add(platform);
         player.platforms.add(platform);
       }
@@ -119,7 +121,7 @@ class Level extends World with HasGameRef {
     Layer? background = level.tileMap.getLayer("Background");
     if (background != null) {
       String? bgColor = background.properties.getValue("BackgroundColor");
-      wallPaper = WallPaper(color: 'Brown', position: Vector2(0, 0));
+      wallPaper = WallPaper(color: bgColor ?? "Gray", position: Vector2(0, 0));
       add(wallPaper);
     }
   }

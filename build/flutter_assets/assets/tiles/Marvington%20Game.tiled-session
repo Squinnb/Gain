@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Blue World One.tmx",
+    "activeFile": "Blue World Two.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -13,11 +13,35 @@
                 2,
                 3
             ],
-            "scale": 1.0822,
+            "scale": 1.078,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 402.42099427092955,
-                "y": 155.23932729624838
+                "x": 320.03710575139144,
+                "y": 154.91651205936918
+            }
+        },
+        "Blue World Three.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 0.9635,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 320.7057602490919,
+                "y": 160.87182148417233
+            }
+        },
+        "Blue World Two.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 0.9359,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 320.547066994337,
+                "y": 160.2735334971685
             }
         },
         "Desert Plain2.tmx": {
@@ -40,7 +64,7 @@
             }
         },
         "Marvington Terrain.tsx": {
-            "scaleInDock": 2.8067,
+            "scaleInDock": 0.81,
             "scaleInEditor": 4.71
         },
         "gain.tsx": {
@@ -54,13 +78,17 @@
     "map.tileWidth": 16,
     "map.width": 40,
     "openFiles": [
+        "Blue World One.tmx",
         "Marvington Terrain.tsx",
-        "Blue World One.tmx"
+        "Blue World Two.tmx",
+        "Blue World Three.tmx"
     ],
     "project": "Marvington Game.tiled-project",
     "recentFiles": [
-        "Marvington Terrain.tsx",
         "Blue World One.tmx",
+        "Marvington Terrain.tsx",
+        "Blue World Three.tmx",
+        "Blue World Two.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"
     ],

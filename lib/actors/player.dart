@@ -7,6 +7,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:marvington_game/actors/bullet.dart';
 import '/enemies/bird.dart';
 import '/components/checkpoint.dart';
 import '/components/fruit.dart';
@@ -16,7 +17,7 @@ import '/game.dart';
 import '/levels/platform.dart';
 import '/traps/fire.dart';
 
-enum PlayerState { appear, idle, running, jumping, falling, disappear, hit }
+enum PlayerState { appear, idle, running, jumping, falling, disappear, hit, ducking }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
@@ -46,8 +47,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   bool _jumpPressed = false;
   bool _isOnGround = true;
+  bool _isDucking = false;
   bool _dead = false;
   bool hasBeatLevel = false;
+  bool fired = false;
 
   List<Platform> platforms = [];
 
@@ -56,8 +59,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
+    debugMode = true;
     _loadAllAnimations();
-    add(RectangleHitbox(position: Vector2(6, 4), collisionType: CollisionType.active, size: Vector2(20, 28)));
+    add(RectangleHitbox(collisionType: CollisionType.active));
     return super.onLoad();
   }
 
@@ -81,9 +85,14 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     bool leftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
     bool rightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
+    bool downKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyS) || keysPressed.contains(LogicalKeyboardKey.arrowDown);
+
+    fired = keysPressed.contains(LogicalKeyboardKey.keyF);
+    if (fired) _shoot();
     xDir = 0;
     xDir += leftKeyPressed ? -1 : 0;
     xDir += rightKeyPressed ? 1 : 0;
+    _isDucking = (xDir == 0 && downKeyPressed) ? true : false;
     _jumpPressed = keysPressed.contains(LogicalKeyboardKey.space);
     return super.onKeyEvent(event, keysPressed);
   }
@@ -116,6 +125,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     } else if (other is Saw) {
       _die();
     } else if (other is Fire && other.isActive()) {
+      _die();
+    } else if (other is Platform && other.isLethal) {
       _die();
     } else if (other is Checkpoint) {
       _beatLevel();
@@ -159,9 +170,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   void _loadAllAnimations() {
     SpriteAnimation idleAnime = _spriteAnimation("Idle", 6);
-    SpriteAnimation runningAnime = _spriteAnimation("Run", 4);
+    SpriteAnimation runningAnime = _spriteAnimation("Run", 7);
     SpriteAnimation jumpAnime = _spriteAnimation("Jump", 1);
     SpriteAnimation fallAnime = _spriteAnimation("Fall", 1);
+    SpriteAnimation duckAnime = _spriteAnimation("Duck", 1);
     SpriteAnimation disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
     SpriteAnimation appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
     SpriteAnimation hitAnime = _spriteAnimation("Hit", 4)..loop = false;
@@ -170,6 +182,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       PlayerState.running: runningAnime,
       PlayerState.jumping: jumpAnime,
       PlayerState.falling: fallAnime,
+      PlayerState.ducking: duckAnime,
       PlayerState.appear: appearAnime,
       PlayerState.hit: hitAnime,
       PlayerState.disappear: disappearAnime
@@ -185,6 +198,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       flipHorizontallyAroundCenter();
     }
     if (velocity.x > 0 || velocity.x < 0) playerState = PlayerState.running;
+    if (velocity.x == 0 && _isOnGround && _isDucking) playerState = PlayerState.ducking;
     if (velocity.y > 0 && !_isOnGround) playerState = PlayerState.falling;
     if (velocity.y < 0 && !_isOnGround) playerState = PlayerState.jumping;
     current = playerState;
@@ -260,5 +274,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
         break; // think this is ok
       }
     }
+  }
+
+  void _shoot() {
+    Vector2 pos = Vector2(position.x, position.y);
+    Bullet b = Bullet(xdir: scale.x, position: pos);
+    add(b);
   }
 }

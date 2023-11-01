@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Blue World One.tmx",
+    "activeFile": "Blue World Three.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -14,21 +14,22 @@
                 3
             ],
             "scale": 1.078,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 287.569573283859,
-                "y": 202.22634508348796
+                "x": 320.03710575139144,
+                "y": 154.91651205936918
             }
         },
         "Blue World Three.tmx": {
             "expandedObjectLayers": [
-                2
+                2,
+                3
             ],
             "scale": 0.9635,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 195.12195121951214,
-                "y": 281.26621691748835
+                "x": 297.8723404255319,
+                "y": 174.36429683445775
             }
         },
         "Blue World Two.tmx": {
@@ -36,11 +37,11 @@
                 2,
                 3
             ],
-            "scale": 0.9359,
-            "selectedLayer": 2,
+            "scale": 1.04,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 368.6291270434876,
-                "y": 272.4650069451865
+                "x": 342.30769230769226,
+                "y": 266.3461538461538
             }
         },
         "Desert Plain2.tmx": {
@@ -63,7 +64,7 @@
             }
         },
         "Marvington Terrain.tsx": {
-            "scaleInDock": 2.0863,
+            "scaleInDock": 0.81,
             "scaleInEditor": 4.71
         },
         "gain.tsx": {
@@ -71,6 +72,7 @@
         }
     },
     "last.imagePath": "/Users/squinnb/Desktop/gain/assets/images/Terrain",
+    "map.fixedSize": false,
     "map.height": 20,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -78,12 +80,16 @@
     "map.width": 40,
     "openFiles": [
         "Blue World One.tmx",
-        "Marvington Terrain.tsx"
+        "Marvington Terrain.tsx",
+        "Blue World Two.tmx",
+        "Blue World Three.tmx"
     ],
     "project": "Marvington Game.tiled-project",
     "recentFiles": [
-        "Marvington Terrain.tsx",
         "Blue World One.tmx",
+        "Marvington Terrain.tsx",
+        "Blue World Two.tmx",
+        "Blue World Three.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"
     ],
