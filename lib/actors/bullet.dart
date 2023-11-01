@@ -1,19 +1,18 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:marvington_game/game.dart';
+import 'package:marvington_game/levels/platform.dart';
 
 class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCallbacks {
   double xdir;
   Bullet({super.position, super.size, required this.xdir});
-  final double _speed = 20;
+  final double _speed = 30;
   final Vector2 velocity = Vector2.zero();
 
   FutureOr<void> onLoad() {
-    debugMode = true;
-
+    if (xdir < 0) flipHorizontally();
     animation = _createSpriteAnimation();
     add(CircleHitbox(position: position, collisionType: CollisionType.active));
     return super.onLoad();
@@ -26,8 +25,9 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
   }
 
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    removeFromParent();
     super.onCollision(intersectionPoints, other);
+    print("wtf");
+    removeFromParent();
   }
 
   SpriteAnimation _createSpriteAnimation() {

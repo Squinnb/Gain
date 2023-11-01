@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Blue World Two.tmx",
+    "activeFile": "Blue World Three.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -14,7 +14,7 @@
                 3
             ],
             "scale": 1.078,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
                 "x": 320.03710575139144,
                 "y": 154.91651205936918
@@ -26,10 +26,10 @@
                 3
             ],
             "scale": 0.9635,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 320.7057602490919,
-                "y": 160.87182148417233
+                "x": 297.8723404255319,
+                "y": 174.36429683445775
             }
         },
         "Blue World Two.tmx": {
@@ -37,11 +37,11 @@
                 2,
                 3
             ],
-            "scale": 0.9359,
-            "selectedLayer": 2,
+            "scale": 1.04,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 320.547066994337,
-                "y": 160.2735334971685
+                "x": 342.30769230769226,
+                "y": 266.3461538461538
             }
         },
         "Desert Plain2.tmx": {
@@ -72,6 +72,7 @@
         }
     },
     "last.imagePath": "/Users/squinnb/Desktop/gain/assets/images/Terrain",
+    "map.fixedSize": false,
     "map.height": 20,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -87,8 +88,8 @@
     "recentFiles": [
         "Blue World One.tmx",
         "Marvington Terrain.tsx",
-        "Blue World Three.tmx",
         "Blue World Two.tmx",
+        "Blue World Three.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"
     ],

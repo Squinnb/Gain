@@ -112,7 +112,6 @@ class Level extends World with HasGameRef {
   void _setupCam() {
     boundsWidth = (level.tileMap.map.width * level.tileMap.map.tileWidth).toDouble();
     boundsHeight = (level.tileMap.map.height * level.tileMap.map.tileHeight).toDouble();
-    print("width: $boundsWidth, height: $boundsHeight");
     Rect rect = Rect.fromLTWH(0, 0, boundsWidth, boundsHeight);
     gameRef.camera.setBounds(Rectangle.fromRect(rect));
   }

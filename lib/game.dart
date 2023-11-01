@@ -10,7 +10,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   Player player = Player();
   List<String> levelNames = ["Blue World One", "Blue World Two", "Blue World Three"];
   int _levelIndex = 0;
-  double volume = 0.7;
+  double volume = 0.5;
   bool playSoundEffect = true;
   late Level currLevel;
 

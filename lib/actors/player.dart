@@ -277,8 +277,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   }
 
   void _shoot() {
-    Vector2 pos = Vector2(position.x, position.y);
+    Vector2 pos = Vector2(position.x, (position.y - (height / 3)));
     Bullet b = Bullet(xdir: scale.x, position: pos);
-    add(b);
+    parent!.add(b);
   }
 }
