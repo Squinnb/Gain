@@ -9,7 +9,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   late CameraComponent cam;
   Player player = Player();
   List<String> levelNames = ["Blue World One", "Blue World Two", "Blue World Three"];
-  int _levelIndex = 0;
+  int _levelIndex = 1;
   double volume = 0.5;
   bool playSoundEffect = true;
   late Level currLevel;
@@ -22,6 +22,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   }
 
   void loadNextLevel() {
+    print("made it?");
     removeWhere((component) => component is Level);
     if (_levelIndex < levelNames.length - 1) {
       _levelIndex++;

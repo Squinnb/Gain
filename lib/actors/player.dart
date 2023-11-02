@@ -227,14 +227,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     current = PlayerState.disappear;
     game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -50);
     await animationTicker?.completed;
-    animationTicker?.reset();
+
     xDir = 0;
     velocity = Vector2.zero(); // this doesn't do anything/work.
     removeFromParent();
     hasBeatLevel = false;
-    Future.delayed(const Duration(seconds: 3), () {
-      game.loadNextLevel();
-    });
+
+    game.loadNextLevel();
   }
 
   void _handleXPlatformCollision() {

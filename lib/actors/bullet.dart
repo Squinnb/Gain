@@ -2,32 +2,45 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:marvington_game/enemies/bird.dart';
+import 'package:marvington_game/enemies/radish.dart';
 import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/platform.dart';
 
 class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCallbacks {
   double xdir;
   Bullet({super.position, super.size, required this.xdir});
-  final double _speed = 30;
+  final double _speed = 300;
   final Vector2 velocity = Vector2.zero();
 
+  @override
   FutureOr<void> onLoad() {
     if (xdir < 0) flipHorizontally();
     animation = _createSpriteAnimation();
-    add(CircleHitbox(position: position, collisionType: CollisionType.active));
+    add(CircleHitbox(collisionType: CollisionType.active));
+    debugMode = true;
     return super.onLoad();
   }
 
+  @override
   void update(double dt) {
     velocity.x = xdir * _speed;
     position.x += velocity.x * dt;
     super.update(dt);
   }
 
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
-    print("wtf");
-    removeFromParent();
+  @override
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Bird) {
+      other.die();
+      removeFromParent();
+    } else if (other is Radish) {
+      other.die();
+      removeFromParent();
+    } else if (other is Platform) {
+      removeFromParent();
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   SpriteAnimation _createSpriteAnimation() {
