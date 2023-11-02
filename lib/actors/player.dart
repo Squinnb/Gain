@@ -8,6 +8,7 @@ import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 import 'package:marvington_game/actors/bullet.dart';
+import 'package:marvington_game/levels/rock.dart';
 import '/enemies/bird.dart';
 import '/components/checkpoint.dart';
 import '/components/fruit.dart';
@@ -53,7 +54,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool fired = false;
 
   List<Platform> platforms = [];
-
+  Set<Rock> rocks = {};
   Vector2 velocity = Vector2.zero();
   late Vector2 spawnLocation; // playerSpawnLocation
 
@@ -246,7 +247,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
           velocity.x = 0;
           position.x = (other.x + other.width) + (width / 2);
         }
-
         break; // think this is ok
       }
     }

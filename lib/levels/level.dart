@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:marvington_game/levels/rock.dart';
 import '/actors/player.dart';
 import '/enemies/bird.dart';
 import '/enemies/radish.dart';
@@ -101,8 +102,20 @@ class Level extends World with HasGameRef {
       for (final collision in collisionLayer.objects) {
         bool isPassable = collision.class_ == "Passable";
         bool isLethal = collision.class_ == "Lethal";
-        Platform platform =
-            Platform(position: Vector2(collision.x, collision.y), size: Vector2(collision.width, collision.height), isPassable: isPassable, isLethal: isLethal);
+        bool isRock = collision.class_ == "Rock";
+        if (isRock) {
+          Rock rock = Rock(
+            position: Vector2(collision.x, collision.y),
+            size: Vector2(collision.width, collision.height),
+          );
+          add(rock);
+        }
+        Platform platform = Platform(
+            position: Vector2(collision.x, collision.y),
+            size: Vector2(collision.width, collision.height),
+            isPassable: isPassable,
+            isLethal: isLethal,
+            isRock: isRock);
         add(platform);
         player.platforms.add(platform);
       }

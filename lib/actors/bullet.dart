@@ -46,20 +46,20 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
     super.onCollisionStart(intersectionPoints, other);
   }
 
-  SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1}) {
+  SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1, double ssize = 8}) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Bullet/$state.png"),
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: 0.03,
-        textureSize: Vector2.all(16),
+        textureSize: Vector2.all(ssize),
       ),
     );
   }
 
   void _explode() async {
     hasntHit = false;
-    animation = _createSpriteAnimation(state: "Bullet Hit", amount: 7)..loop = false;
+    animation = _createSpriteAnimation(state: "Bullet Hit", amount: 7, ssize: 16)..loop = false;
     await animationTicker?.completed;
     removeFromParent();
   }
