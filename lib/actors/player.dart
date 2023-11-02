@@ -225,14 +225,12 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void _beatLevel() async {
     hasBeatLevel = true;
     current = PlayerState.disappear;
-    game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -50);
+    game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -75);
     await animationTicker?.completed;
-
     xDir = 0;
     velocity = Vector2.zero(); // this doesn't do anything/work.
-    removeFromParent();
     hasBeatLevel = false;
-
+    position = Vector2(-100, -100);
     game.loadNextLevel();
   }
 
@@ -276,8 +274,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   }
 
   void _shoot() {
-    Vector2 pos = Vector2(position.x, (position.y - (height / 3)));
-    Bullet b = Bullet(xdir: scale.x, position: pos);
+    Vector2 standingPosition = Vector2(position.x, (position.y - (height / 3)));
+    Vector2 duckingPosition = Vector2(position.x, (position.y - 2.0));
+    Bullet b = Bullet(xdir: scale.x, position: _isDucking ? duckingPosition : standingPosition);
     parent!.add(b);
   }
 }

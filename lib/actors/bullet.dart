@@ -12,7 +12,7 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
   Bullet({super.position, super.size, required this.xdir});
   final double _speed = 300;
   final Vector2 velocity = Vector2.zero();
-
+  bool hasntHit = true;
   @override
   FutureOr<void> onLoad() {
     if (xdir < 0) flipHorizontally();
@@ -24,8 +24,10 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
 
   @override
   void update(double dt) {
-    velocity.x = xdir * _speed;
-    position.x += velocity.x * dt;
+    if (hasntHit) {
+      velocity.x = xdir * _speed;
+      position.x += velocity.x * dt;
+    }
     super.update(dt);
   }
 
@@ -33,24 +35,32 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Bird) {
       other.die();
-      removeFromParent();
+      _explode();
     } else if (other is Radish) {
       other.die();
-      removeFromParent();
+      _explode();
     } else if (other is Platform) {
-      removeFromParent();
+      _explode();
     }
+
     super.onCollisionStart(intersectionPoints, other);
   }
 
-  SpriteAnimation _createSpriteAnimation() {
+  SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1}) {
     return SpriteAnimation.fromFrameData(
-      game.images.fromCache("Marvington/Marv Bullet.png"),
+      game.images.fromCache("Bullet/$state.png"),
       SpriteAnimationData.sequenced(
-        amount: 1,
-        stepTime: 0.11,
+        amount: amount,
+        stepTime: 0.03,
         textureSize: Vector2.all(16),
       ),
     );
+  }
+
+  void _explode() async {
+    hasntHit = false;
+    animation = _createSpriteAnimation(state: "Bullet Hit", amount: 7)..loop = false;
+    await animationTicker?.completed;
+    removeFromParent();
   }
 }
