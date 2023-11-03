@@ -9,13 +9,13 @@ import '/enemies/radish.dart';
 import '/components/wallpaper.dart';
 import '/components/checkpoint.dart';
 import '/components/fruit.dart';
-import '/traps/saw.dart';
+import '../traps/moon.dart';
 import '/levels/platform.dart';
 import 'package:flame/experimental.dart';
 import '/traps/fire.dart';
 
 Set<String> enemies = {"Bird", "Radish"};
-Set<String> traps = {"Saw", "Fire"};
+Set<String> traps = {"Moon", "Fire"};
 
 class Level extends World with HasGameRef {
   String levelName;
@@ -78,17 +78,17 @@ class Level extends World with HasGameRef {
   }
 
   void _spawnTraps(TiledObject spawnPoint) {
-    if (spawnPoint.class_ == "Saw") {
+    if (spawnPoint.class_ == "Moon") {
       double minusOffset = spawnPoint.properties.getValue("offNegative");
       double plusOffset = spawnPoint.properties.getValue("offPositive");
       bool isVertical = spawnPoint.properties.getValue("isVertical");
-      Saw s = Saw(
+      Moon m = Moon(
           isVertical: isVertical,
           minusOffset: minusOffset,
           plusOffset: plusOffset,
           position: Vector2(spawnPoint.x, spawnPoint.y),
           size: Vector2(spawnPoint.width, spawnPoint.height));
-      add(s);
+      add(m);
     } else if (spawnPoint.class_ == "Fire") {
       Fire spike = Fire(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
       add(spike);

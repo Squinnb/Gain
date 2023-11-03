@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Blue World One.tmx",
+    "activeFile": "Blue World Three.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -13,11 +13,11 @@
                 2,
                 3
             ],
-            "scale": 2.3223,
-            "selectedLayer": 2,
+            "scale": 1.12,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 164.92270593807865,
-                "y": 188.17551565258583
+                "x": 320.5357142857142,
+                "y": 160.71428571428572
             }
         },
         "Blue World Three.tmx": {
@@ -25,11 +25,11 @@
                 2,
                 3
             ],
-            "scale": 1.068,
-            "selectedLayer": 0,
+            "scale": 0.8978,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 328.65168539325845,
-                "y": 270.59925093632955
+                "x": 193.80708398306973,
+                "y": 188.23791490309645
             }
         },
         "Blue World Two.tmx": {
@@ -37,11 +37,11 @@
                 2,
                 3
             ],
-            "scale": 1.529,
+            "scale": 1.0693,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 239.3721386527142,
-                "y": 268.80313930673645
+                "x": 320.7705975872066,
+                "y": 160.85289441690824
             }
         },
         "Desert Plain2.tmx": {
@@ -65,7 +65,7 @@
         },
         "Marvington Terrain.tsx": {
             "scaleInDock": 0.81,
-            "scaleInEditor": 4.71
+            "scaleInEditor": 2.81
         },
         "gain.tsx": {
             "scaleInDock": 1
@@ -87,9 +87,9 @@
     "project": "Marvington Game.tiled-project",
     "recentFiles": [
         "Marvington Terrain.tsx",
-        "Blue World Three.tmx",
-        "Blue World Two.tmx",
         "Blue World One.tmx",
+        "Blue World Two.tmx",
+        "Blue World Three.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"
     ],

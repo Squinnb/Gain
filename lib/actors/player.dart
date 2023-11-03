@@ -13,7 +13,7 @@ import '/enemies/bird.dart';
 import '/components/checkpoint.dart';
 import '/components/fruit.dart';
 import '/enemies/radish.dart';
-import '/traps/saw.dart';
+import '../traps/moon.dart';
 import '/game.dart';
 import '/levels/platform.dart';
 import '/traps/fire.dart';
@@ -123,10 +123,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Fruit) {
       other.collect();
-    } else if (other is Saw) {
+    } else if (other is Moon) {
       _die();
-    } else if (other is Fire && other.isActive()) {
-      _die();
+    } else if (other is Fire) {
+      if (other.isActive()) _die();
     } else if (other is Platform && other.isLethal) {
       _die();
     } else if (other is Checkpoint) {
@@ -231,8 +231,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     xDir = 0;
     velocity = Vector2.zero(); // this doesn't do anything/work.
     hasBeatLevel = false;
-    position = Vector2(-100, -100);
-    game.loadNextLevel();
+    Future.delayed(const Duration(seconds: 2), () {
+      removeFromParent();
+      game.loadNextLevel();
+    });
   }
 
   void _handleXPlatformCollision() {
