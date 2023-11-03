@@ -60,9 +60,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
     _loadAllAnimations();
-    add(RectangleHitbox(collisionType: CollisionType.active));
+    add(RectangleHitbox(position: Vector2(3, 2), size: Vector2(26, 30), collisionType: CollisionType.active));
     return super.onLoad();
   }
 
@@ -125,8 +124,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       other.collect();
     } else if (other is Moon) {
       _die();
-    } else if (other is Fire) {
-      if (other.isActive()) _die();
     } else if (other is Platform && other.isLethal) {
       _die();
     } else if (other is Checkpoint) {
@@ -152,11 +149,20 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     super.onCollisionStart(intersectionPoints, other);
   }
 
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    // TODO: implement onCollision
+    super.onCollision(intersectionPoints, other);
+    if (other is Fire) {
+      if (other.isActive()) _die();
+    }
+  }
+
   SpriteAnimation _spriteAnimation(String state, int amount) {
     String cacheUrl = "Marvington/Marv $state.png";
     double txtSz = 32;
     if (state == "Disappearing" || state == "Appearing") {
-      cacheUrl = "Main Characters/$state (96x96).png";
+      cacheUrl = "Marvington/$state (96x96).png";
       txtSz = 96;
     }
     return SpriteAnimation.fromFrameData(
@@ -231,8 +237,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     xDir = 0;
     velocity = Vector2.zero(); // this doesn't do anything/work.
     hasBeatLevel = false;
+    removeFromParent();
     Future.delayed(const Duration(seconds: 2), () {
-      removeFromParent();
       game.loadNextLevel();
     });
   }

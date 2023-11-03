@@ -19,7 +19,6 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
     if (xdir < 0) flipHorizontally();
     animation = _createSpriteAnimation();
     add(CircleHitbox(collisionType: CollisionType.active));
-    debugMode = true;
     return super.onLoad();
   }
 

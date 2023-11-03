@@ -13,7 +13,7 @@ class Fire extends SpriteAnimationComponent with HasGameRef<Gain> {
 
   @override
   FutureOr<void> onLoad() {
-    add(CircleHitbox());
+    add(CircleHitbox(collisionType: CollisionType.active));
     animations = {
       FireState.off: _createAnimation(),
       FireState.on: _createAnimation(name: "On", amount: 3),
