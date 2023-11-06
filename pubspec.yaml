@@ -36,11 +36,10 @@ flutter:
     - assets/images/Bullet/
     - assets/images/Items/Checkpoints/Checkpoint/
     - assets/images/Items/Fruits/
-    - assets/images/Traps/Saw/
     - assets/images/Traps/Moon/
     - assets/images/Traps/Fire/
     - assets/images/Marvington/
-    - assets/images/Main Characters/
     - assets/images/Enemies/Radish/
+    - assets/images/Enemies/Blob/
     - assets/images/Enemies/BlueBird/
     - assets/audio/
