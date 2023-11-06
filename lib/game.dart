@@ -22,7 +22,6 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
   }
 
   void loadNextLevel() {
-    print("made it?");
     removeWhere((component) => component is Level);
     if (_levelIndex < levelNames.length - 1) {
       _levelIndex++;
@@ -32,7 +31,6 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
       _loadLevel();
       // You beat the game
     }
-    print(_levelIndex);
   }
 
   void _loadLevel() {
@@ -40,7 +38,7 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
     currLevel = world;
     cam = CameraComponent.withFixedResolution(world: world, width: 640, height: 320);
     cam.viewfinder.anchor = Anchor.topLeft;
-    // cam.follow(player);
+
     addAll([world, cam]);
   }
 }

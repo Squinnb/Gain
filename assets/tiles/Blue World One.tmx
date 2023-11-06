@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="Marvington Terrain.tsx"/>
  <layer id="1" name="Background" width="40" height="20">
   <properties>
-   <property name="BackgroundColor" value="Brown"/>
+   <property name="BackgroundColor" value="Green"/>
   </properties>
   <data encoding="csv">
 47,30,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,32,
