@@ -8,40 +8,48 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "Blue World One.tmx": {
-            "expandedObjectLayers": [
-                3,
-                2
-            ],
-            "scale": 1.078,
+        "Blue World Four.tmx": {
+            "scale": 0.3491,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 320.03710575139144,
-                "y": 154.91651205936918
+                "x": 640.2177026639931,
+                "y": 320.8249785161845
+            }
+        },
+        "Blue World One.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 1.4234,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 452.0865533230293,
+                "y": 229.02908528874525
             }
         },
         "Blue World Three.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
-            "scale": 1.068,
-            "selectedLayer": 0,
+            "scale": 0.8978,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 327.71535580524346,
-                "y": 270.59925093632955
+                "x": 463.9117843617732,
+                "y": 167.07507239919804
             }
         },
         "Blue World Two.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
-            "scale": 1.04,
-            "selectedLayer": 1,
+            "scale": 1.0772,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 342.30769230769226,
-                "y": 266.3461538461538
+                "x": 393.148904567397,
+                "y": 235.7965094689937
             }
         },
         "Desert Plain2.tmx": {
@@ -65,30 +73,33 @@
         },
         "Marvington Terrain.tsx": {
             "scaleInDock": 0.81,
-            "scaleInEditor": 4.71
+            "scaleInEditor": 2.81
         },
         "gain.tsx": {
             "scaleInDock": 1
         }
     },
     "last.imagePath": "/Users/squinnb/Desktop/gain/assets/images/Terrain",
-    "map.fixedSize": false,
-    "map.height": 20,
+    "map.fixedSize": true,
+    "map.height": 40,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 40,
+    "map.width": 80,
     "openFiles": [
-        "Blue World One.tmx",
         "Marvington Terrain.tsx",
+        "Blue World One.tmx",
         "Blue World Two.tmx",
-        "Blue World Three.tmx"
+        "Blue World Three.tmx",
+        "Blue World Four.tmx"
     ],
     "project": "Marvington Game.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "Blue World One.tmx",
         "Marvington Terrain.tsx",
+        "Blue World One.tmx",
         "Blue World Two.tmx",
+        "Blue World Four.tmx",
         "Blue World Three.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"

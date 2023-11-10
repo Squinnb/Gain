@@ -19,7 +19,7 @@ import '/game.dart';
 import '/levels/platform.dart';
 import '/traps/fire.dart';
 
-enum PlayerState { appear, idle, running, jumping, falling, disappear, hit, entering, turnedAway }
+enum PlayerState { appear, idle, running, jumping, falling, disappear, hit, entering, entered }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
@@ -74,9 +74,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     while (accumulatedTime >= fixedDeltaTime) {
       if (!_dead && !hasBeatLevel) {
         _updateAnimation();
-        _updatePlayerMovement(dt);
+        _updatePlayerMovement(fixedDeltaTime);
         _handleXPlatformCollision();
-        _applyGravity(dt);
+        _applyGravity(fixedDeltaTime);
         _handleYPlatformCollision();
       }
       accumulatedTime -= fixedDeltaTime;
@@ -183,7 +183,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     SpriteAnimation runningAnime = _spriteAnimation("Run", 7);
     SpriteAnimation jumpAnime = _spriteAnimation("Jump", 1);
     SpriteAnimation fallAnime = _spriteAnimation("Fall", 1);
-    SpriteAnimation turnedAwayAnime = _spriteAnimation("Turned Away", 1);
+    SpriteAnimation enteredAnime = _spriteAnimation("Turned Away", 1);
     SpriteAnimation enterAnime = _spriteAnimation("Enter", 4)..loop = false;
     SpriteAnimation disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
     SpriteAnimation appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
@@ -194,7 +194,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       PlayerState.jumping: jumpAnime,
       PlayerState.falling: fallAnime,
       PlayerState.entering: enterAnime,
-      PlayerState.turnedAway: turnedAwayAnime,
+      PlayerState.entered: enteredAnime,
       PlayerState.appear: appearAnime,
       PlayerState.hit: hitAnime,
       PlayerState.disappear: disappearAnime
@@ -252,11 +252,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     enteredDoor = true;
     current = PlayerState.entering;
     await animationTicker?.completed;
-    current = PlayerState.turnedAway;
+    current = PlayerState.entered;
     xDir = 0;
     velocity = Vector2.zero();
     enteredDoor = false;
-    Future.delayed(const Duration(microseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 350), () {
       hasBeatLevel = false;
       game.loadNextLevel(levelName);
     });
