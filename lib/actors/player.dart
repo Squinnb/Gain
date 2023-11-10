@@ -53,6 +53,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool _dead = false;
   bool hasBeatLevel = false;
   bool fired = false;
+  bool enteredDoor = false;
 
   List<Platform> platforms = [];
   Set<Rock> rocks = {};
@@ -128,7 +129,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     } else if (other is Platform && other.isLethal) {
       _die();
     } else if (other is Checkpoint) {
-      _beatLevel();
+      // _beatLevel();
       FlameAudio.play("synth3.wav", volume: game.volume);
     } else if (other is Radish) {
       bool radishStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
@@ -156,7 +157,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     if (other is Fire) {
       if (other.isActive()) _die();
     } else if (other is Door) {
-      if (upPressed) _enterDoor(other.levelName);
+      if (upPressed && !enteredDoor) _enterDoor(other.levelName);
     }
   }
 
@@ -232,28 +233,32 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     Future.delayed(_dur, () => _dead = false);
   }
 
-  void _beatLevel() async {
-    hasBeatLevel = true;
-    current = PlayerState.disappear;
-    game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -75);
-    await animationTicker?.completed;
-    xDir = 0;
-    velocity = Vector2.zero(); // this doesn't do anything/work.
-    hasBeatLevel = false;
-    removeFromParent();
-    Future.delayed(const Duration(seconds: 2), () {
-      game.loadNextLevel();
-    });
-  }
+  // void _beatLevel() async {
+  //   hasBeatLevel = true;
+  //   current = PlayerState.disappear;
+  //   game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -75);
+  //   await animationTicker?.completed;
+  //   xDir = 0;
+  //   velocity = Vector2.zero(); // this doesn't do anything/work.
+  //   hasBeatLevel = false;
+  //   removeFromParent();
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     game.loadNextLevel();
+  //   });
+  // }
 
   void _enterDoor(String levelName) async {
     hasBeatLevel = true;
+    enteredDoor = true;
     current = PlayerState.entering;
     await animationTicker?.completed;
     current = PlayerState.turnedAway;
-    hasBeatLevel = false;
-    Future.delayed(const Duration(milliseconds: 200), () {
-      game.loadNextLevel();
+    xDir = 0;
+    velocity = Vector2.zero();
+    enteredDoor = false;
+    Future.delayed(const Duration(microseconds: 300), () {
+      hasBeatLevel = false;
+      game.loadNextLevel(levelName);
     });
   }
 

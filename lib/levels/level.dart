@@ -58,7 +58,7 @@ class Level extends World with HasGameRef {
           Checkpoint checkp = Checkpoint(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
           add(checkp);
         } else if (spawnPoint.class_ == "Door") {
-          String levelName = spawnPoint.properties.getValue("levelName");
+          String levelName = spawnPoint.properties.getValue("leadsTo");
           Door d = Door(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height), levelName: levelName);
           add(d);
         }

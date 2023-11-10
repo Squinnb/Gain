@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="32">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="33">
  <tileset firstgid="1" source="Marvington Terrain.tsx"/>
  <layer id="1" name="Background" width="40" height="20">
   <properties>
@@ -38,7 +38,6 @@
     <property name="offPositive" type="float" value="3"/>
    </properties>
   </object>
-  <object id="13" type="Checkpoint" x="560" y="144" width="64" height="64"/>
   <object id="14" type="Bird" x="496" y="96" width="32" height="32">
    <properties>
     <property name="offNegative" type="float" value="18"/>
@@ -51,6 +50,12 @@
   <object id="26" type="Fire" x="400" y="144" width="16" height="32"/>
   <object id="27" type="Fire" x="416" y="144" width="16" height="32"/>
   <object id="28" type="Fire" x="432" y="144" width="16" height="32"/>
+  <object id="32" type="Door" x="576" y="176" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="false"/>
+    <property name="leadsTo" value="Blue World One"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="Collisions">
   <object id="1" x="16" y="160" width="48" height="160"/>

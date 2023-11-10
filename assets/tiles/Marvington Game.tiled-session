@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Blue World One.tmx",
+    "activeFile": "Blue World Three.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -24,7 +24,7 @@
             "scale": 1.4234,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 452.7890965294365,
+                "x": 452.0865533230293,
                 "y": 229.02908528874525
             }
         },
@@ -36,8 +36,8 @@
             "scale": 0.8978,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 320.2272220984629,
-                "y": 160.39206950323012
+                "x": 463.9117843617732,
+                "y": 167.07507239919804
             }
         },
         "Blue World Two.tmx": {
@@ -45,11 +45,11 @@
                 2,
                 3
             ],
-            "scale": 1.0693,
-            "selectedLayer": 1,
+            "scale": 1.0772,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 279.1545871130646,
-                "y": 160.85289441690824
+                "x": 393.148904567397,
+                "y": 235.7965094689937
             }
         },
         "Desert Plain2.tmx": {
@@ -94,12 +94,13 @@
         "Blue World Four.tmx"
     ],
     "project": "Marvington Game.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "Marvington Terrain.tsx",
+        "Blue World One.tmx",
+        "Blue World Two.tmx",
         "Blue World Four.tmx",
         "Blue World Three.tmx",
-        "Blue World Two.tmx",
-        "Blue World One.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"
     ],
