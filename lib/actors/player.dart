@@ -8,6 +8,7 @@ import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 import 'package:marvington_game/actors/bullet.dart';
+import 'package:marvington_game/components/door.dart';
 import 'package:marvington_game/levels/rock.dart';
 import '/enemies/bird.dart';
 import '/components/checkpoint.dart';
@@ -18,7 +19,7 @@ import '/game.dart';
 import '/levels/platform.dart';
 import '/traps/fire.dart';
 
-enum PlayerState { appear, idle, running, jumping, falling, disappear, hit, ducking }
+enum PlayerState { appear, idle, running, jumping, falling, disappear, hit, entering, turnedAway }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
@@ -48,10 +49,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   bool _jumpPressed = false;
   bool _isOnGround = true;
-  bool _isDucking = false;
+  bool upPressed = false;
   bool _dead = false;
   bool hasBeatLevel = false;
   bool fired = false;
+  bool enteredDoor = false;
 
   List<Platform> platforms = [];
   Set<Rock> rocks = {};
@@ -60,6 +62,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
+    debugMode = true;
     _loadAllAnimations();
     add(RectangleHitbox(position: Vector2(3, 2), size: Vector2(26, 30), collisionType: CollisionType.active));
     return super.onLoad();
@@ -85,14 +88,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     bool leftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
     bool rightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
-    bool downKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyS) || keysPressed.contains(LogicalKeyboardKey.arrowDown);
+    upPressed = keysPressed.contains(LogicalKeyboardKey.keyS) || keysPressed.contains(LogicalKeyboardKey.arrowUp);
 
     fired = keysPressed.contains(LogicalKeyboardKey.keyF);
     if (fired) _shoot();
     xDir = 0;
     xDir += leftKeyPressed ? -1 : 0;
     xDir += rightKeyPressed ? 1 : 0;
-    _isDucking = (xDir == 0 && downKeyPressed) ? true : false;
     _jumpPressed = keysPressed.contains(LogicalKeyboardKey.space);
     return super.onKeyEvent(event, keysPressed);
   }
@@ -127,7 +129,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     } else if (other is Platform && other.isLethal) {
       _die();
     } else if (other is Checkpoint) {
-      _beatLevel();
+      // _beatLevel();
       FlameAudio.play("synth3.wav", volume: game.volume);
     } else if (other is Radish) {
       bool radishStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
@@ -151,10 +153,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    // TODO: implement onCollision
     super.onCollision(intersectionPoints, other);
     if (other is Fire) {
       if (other.isActive()) _die();
+    } else if (other is Door) {
+      if (upPressed && !enteredDoor) _enterDoor(other.levelName);
     }
   }
 
@@ -180,7 +183,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     SpriteAnimation runningAnime = _spriteAnimation("Run", 7);
     SpriteAnimation jumpAnime = _spriteAnimation("Jump", 1);
     SpriteAnimation fallAnime = _spriteAnimation("Fall", 1);
-    SpriteAnimation duckAnime = _spriteAnimation("Duck", 1);
+    SpriteAnimation turnedAwayAnime = _spriteAnimation("Turned Away", 1);
+    SpriteAnimation enterAnime = _spriteAnimation("Enter", 4)..loop = false;
     SpriteAnimation disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
     SpriteAnimation appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
     SpriteAnimation hitAnime = _spriteAnimation("Hit", 4)..loop = false;
@@ -189,7 +193,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       PlayerState.running: runningAnime,
       PlayerState.jumping: jumpAnime,
       PlayerState.falling: fallAnime,
-      PlayerState.ducking: duckAnime,
+      PlayerState.entering: enterAnime,
+      PlayerState.turnedAway: turnedAwayAnime,
       PlayerState.appear: appearAnime,
       PlayerState.hit: hitAnime,
       PlayerState.disappear: disappearAnime
@@ -205,7 +210,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
       flipHorizontallyAroundCenter();
     }
     if (velocity.x > 0 || velocity.x < 0) playerState = PlayerState.running;
-    if (velocity.x == 0 && _isOnGround && _isDucking) playerState = PlayerState.ducking;
     if (velocity.y > 0 && !_isOnGround) playerState = PlayerState.falling;
     if (velocity.y < 0 && !_isOnGround) playerState = PlayerState.jumping;
     current = playerState;
@@ -229,17 +233,32 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     Future.delayed(_dur, () => _dead = false);
   }
 
-  void _beatLevel() async {
+  // void _beatLevel() async {
+  //   hasBeatLevel = true;
+  //   current = PlayerState.disappear;
+  //   game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -75);
+  //   await animationTicker?.completed;
+  //   xDir = 0;
+  //   velocity = Vector2.zero(); // this doesn't do anything/work.
+  //   hasBeatLevel = false;
+  //   removeFromParent();
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     game.loadNextLevel();
+  //   });
+  // }
+
+  void _enterDoor(String levelName) async {
     hasBeatLevel = true;
-    current = PlayerState.disappear;
-    game.currLevel.wallPaper.parallax?.baseVelocity = Vector2(0, -75);
+    enteredDoor = true;
+    current = PlayerState.entering;
     await animationTicker?.completed;
+    current = PlayerState.turnedAway;
     xDir = 0;
-    velocity = Vector2.zero(); // this doesn't do anything/work.
-    hasBeatLevel = false;
-    removeFromParent();
-    Future.delayed(const Duration(seconds: 2), () {
-      game.loadNextLevel();
+    velocity = Vector2.zero();
+    enteredDoor = false;
+    Future.delayed(const Duration(microseconds: 300), () {
+      hasBeatLevel = false;
+      game.loadNextLevel(levelName);
     });
   }
 
@@ -283,8 +302,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   void _shoot() {
     Vector2 standingPosition = Vector2(position.x, (position.y - (height / 3)));
-    Vector2 duckingPosition = Vector2(position.x, (position.y - 2.0));
-    Bullet b = Bullet(xdir: scale.x, position: _isDucking ? duckingPosition : standingPosition);
+    // Vector2 duckingPosition = Vector2(position.x, (position.y - 2.0));
+    Bullet b = Bullet(xdir: scale.x, position: standingPosition);
     parent!.add(b);
   }
 }

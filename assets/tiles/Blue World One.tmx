@@ -40,7 +40,12 @@
    </properties>
   </object>
   <object id="5" name="Orange" type="Fruit" x="224" y="224" width="32" height="32"/>
-  <object id="6" type="Checkpoint" x="560" y="144" width="64" height="64"/>
+  <object id="6" type="Door" x="576" y="176" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="false"/>
+    <property name="leadsTo" value="Blue World Two"/>
+   </properties>
+  </object>
   <object id="7" type="Bird" x="320" y="192" width="32" height="32">
    <properties>
     <property name="offNegative" type="float" value="11"/>

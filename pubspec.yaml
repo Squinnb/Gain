@@ -33,6 +33,7 @@ flutter:
     - assets/tiles/
     - assets/images/Terrain/
     - assets/images/Background/
+    - assets/images/Background/Door/
     - assets/images/Bullet/
     - assets/images/Items/Checkpoints/Checkpoint/
     - assets/images/Items/Fruits/

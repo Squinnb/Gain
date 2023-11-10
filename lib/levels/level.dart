@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:marvington_game/components/door.dart';
 import 'package:marvington_game/levels/rock.dart';
 import '/actors/player.dart';
 import '/enemies/bird.dart';
@@ -56,6 +57,10 @@ class Level extends World with HasGameRef {
         } else if (spawnPoint.class_ == "Checkpoint") {
           Checkpoint checkp = Checkpoint(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
           add(checkp);
+        } else if (spawnPoint.class_ == "Door") {
+          String levelName = spawnPoint.properties.getValue("leadsTo");
+          Door d = Door(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height), levelName: levelName);
+          add(d);
         }
       }
     }
