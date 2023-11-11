@@ -9,15 +9,22 @@ import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/platform.dart';
 
 class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCallbacks {
-  double xdir;
-  Bullet({super.position, super.size, required this.xdir});
+  double dir;
+  bool isVert;
+  Bullet({super.position, super.size, required this.dir, this.isVert = false});
   final double _speed = 300;
   final Vector2 velocity = Vector2.zero();
   bool hasntHit = true;
+
   @override
   FutureOr<void> onLoad() {
-    if (xdir < 0) flipHorizontally();
+    if (isVert) {
+      if (dir > 0) flipVertically();
+    } else {
+      if (dir < 0) flipHorizontally();
+    }
     animation = _createSpriteAnimation();
+
     add(CircleHitbox(collisionType: CollisionType.active));
     return super.onLoad();
   }
@@ -25,8 +32,13 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
   @override
   void update(double dt) {
     if (hasntHit) {
-      velocity.x = xdir * _speed;
-      position.x += velocity.x * dt;
+      if (isVert) {
+        velocity.y = dir * _speed;
+        position.y += velocity.y * dt;
+      } else {
+        velocity.x = dir * _speed;
+        position.x += velocity.x * dt;
+      }
     }
     super.update(dt);
   }
@@ -48,6 +60,7 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
   }
 
   SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1, double ssize = 10}) {
+    if (isVert) state = "Marv Bullet Vert";
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Bullet/$state.png"),
       SpriteAnimationData.sequenced(

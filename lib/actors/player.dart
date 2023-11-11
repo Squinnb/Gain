@@ -81,10 +81,19 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     bool leftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
     bool rightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
+    bool downPressed = keysPressed.contains(LogicalKeyboardKey.keyS) || keysPressed.contains(LogicalKeyboardKey.arrowDown);
     upPressed = keysPressed.contains(LogicalKeyboardKey.keyS) || keysPressed.contains(LogicalKeyboardKey.arrowUp);
-
     fired = keysPressed.contains(LogicalKeyboardKey.keyF);
-    if (fired) _shoot();
+
+    if (fired) {
+      if (upPressed) {
+        _shoot(ydir: -1);
+      } else if (downPressed && !_isOnGround) {
+        _shoot(ydir: 1);
+      } else {
+        _shoot();
+      }
+    }
     xDir = 0;
     xDir += leftKeyPressed ? -1 : 0;
     xDir += rightKeyPressed ? 1 : 0;
@@ -293,10 +302,16 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     }
   }
 
-  void _shoot() {
-    Vector2 standingPosition = Vector2(position.x, (position.y - (height / 3)));
-    // Vector2 duckingPosition = Vector2(position.x, (position.y - 2.0));
-    Bullet b = Bullet(xdir: scale.x, position: standingPosition);
-    parent?.add(b);
+  void _shoot({double ydir = 0}) {
+    if (ydir == 0) {
+      Vector2 standingPosition = Vector2(position.x, (position.y - (height / 3)));
+      Bullet b = Bullet(dir: scale.x, position: standingPosition);
+      parent?.add(b);
+    } else {
+      Vector2 upPosition = Vector2(position.x, (position.y - (height / 3)));
+      Vector2 downnPosition = Vector2(position.x, (position.y + (height / 3)));
+      Bullet b = Bullet(dir: ydir, position: ydir == 1 ? downnPosition : upPosition, isVert: true);
+      parent?.add(b);
+    }
   }
 }
