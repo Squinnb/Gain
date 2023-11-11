@@ -33,7 +33,7 @@ class Rock extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCall
   void _break() async {
     animation = _spriteAnimation(name: "Rock Break", amount: 5)..loop = false;
     await animationTicker?.completed;
-    game.currLevel.removeWhere((component) => (component is Platform && component.position == position));
+    game.currWorld.removeWhere((component) => (component is Platform && component.position == position));
     game.player.platforms.removeWhere((Platform p) => p.position == position);
     removeFromParent();
   }

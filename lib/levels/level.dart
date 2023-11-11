@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:marvington_game/components/door.dart';
+import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/rock.dart';
 import '/actors/player.dart';
 import '/enemies/bird.dart';
@@ -18,7 +18,7 @@ import '/traps/fire.dart';
 Set<String> enemies = {"Bird", "Radish"};
 Set<String> traps = {"Moon", "Fire"};
 
-class Level extends World with HasGameRef {
+class Level extends World with HasGameRef<Gain> {
   String levelName;
   Player player;
   Level({required this.levelName, required this.player});
@@ -128,17 +128,25 @@ class Level extends World with HasGameRef {
   }
 
   void _setupCam() {
-    boundsWidth = (level.tileMap.map.width * level.tileMap.map.tileWidth).toDouble();
-    boundsHeight = (level.tileMap.map.height * level.tileMap.map.tileHeight).toDouble();
-    Rect rect = Rect.fromLTWH(0, 0, boundsWidth, boundsHeight);
-    gameRef.camera.setBounds(Rectangle.fromRect(rect));
+    double horz = game.camWidth / 2;
+    double vert = game.camHeight / 2;
+    Layer? background = level.tileMap.getLayer("Background");
+    if (background != null) {
+      double? levelWidth = background.properties.getValue("width");
+      double? levelHeight = background.properties.getValue("height");
+      if (levelHeight != null && levelWidth != null) {
+        Rectangle bounds = Rectangle.fromLTRB(horz, vert, levelWidth - horz, levelHeight - vert);
+        game.cam.setBounds(bounds);
+      }
+      game.cam.follow(player);
+    }
   }
 
   void _addBackground() {
     Layer? background = level.tileMap.getLayer("Background");
     if (background != null) {
       String? bgColor = background.properties.getValue("BackgroundColor");
-      wallPaper = WallPaper(color: bgColor ?? "Gray", position: Vector2(0, 0));
+      wallPaper = WallPaper(color: bgColor ?? "Pink", position: Vector2(0, 0));
       add(wallPaper);
     }
   }

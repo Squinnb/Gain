@@ -4,6 +4,8 @@
  <layer id="1" name="Background" width="40" height="20">
   <properties>
    <property name="BackgroundColor" value="Pink"/>
+   <property name="height" type="float" value="320"/>
+   <property name="width" type="float" value="640"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48,

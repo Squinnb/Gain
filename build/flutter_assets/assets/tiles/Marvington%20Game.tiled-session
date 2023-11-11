@@ -3,53 +3,57 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Blue World Three.tmx",
+    "activeFile": "Blue World Four.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "Blue World Four.tmx": {
-            "scale": 0.3491,
+            "expandedObjectLayers": [
+                3,
+                2
+            ],
+            "scale": 0.6455,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 640.2177026639931,
-                "y": 320.8249785161845
+                "x": 790.8597986057321,
+                "y": 429.12470952749806
             }
         },
         "Blue World One.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 1.4234,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 452.0865533230293,
-                "y": 229.02908528874525
+                "x": 428.2000843051847,
+                "y": 228.32654208233805
             }
         },
         "Blue World Three.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 0.8978,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 463.9117843617732,
-                "y": 167.07507239919804
+                "x": 273.44620182668746,
+                "y": 170.416573847182
             }
         },
         "Blue World Two.tmx": {
             "expandedObjectLayers": [
-                2,
-                3
+                3,
+                2
             ],
             "scale": 1.0772,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 393.148904567397,
-                "y": 235.7965094689937
+                "x": 362.51392499071665,
+                "y": 234.86817675454884
             }
         },
         "Desert Plain2.tmx": {
@@ -94,13 +98,13 @@
         "Blue World Four.tmx"
     ],
     "project": "Marvington Game.tiled-project",
-    "property.type": "bool",
+    "property.type": "float",
     "recentFiles": [
         "Marvington Terrain.tsx",
         "Blue World One.tmx",
         "Blue World Two.tmx",
-        "Blue World Four.tmx",
         "Blue World Three.tmx",
+        "Blue World Four.tmx",
         "Desert Plain2.tmx",
         "Grass Land.tmx"
     ],

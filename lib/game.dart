@@ -6,17 +6,20 @@ import '/actors/player.dart';
 import '/levels/level.dart';
 
 class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection {
-  late CameraComponent cam;
   Player player = Player();
-  Set<String> levelNames = {"Blue World One", "Blue World Two", "Blue World Three"};
+  Set<String> levelNames = {"Blue World One", "Blue World Two", "Blue World Three", "Blue World Four"};
   double volume = 0.2;
   bool playSoundEffect = true;
-  late Level currLevel;
+  double camWidth = 640;
+  double camHeight = 320;
+  CameraComponent cam = CameraComponent.withFixedResolution(width: 640, height: 320);
+  late Level currWorld;
 
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages(); // into cache
     _loadLevel("Blue World One");
+    add(cam);
     return super.onLoad();
   }
 
@@ -24,17 +27,13 @@ class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDete
     removeWhere((component) => component is Level);
     if (levelNames.contains(levelName)) {
       _loadLevel(levelName);
-    } else {
-      print("Name Error in tiled.");
     }
   }
 
   void _loadLevel(String levelName) {
     Level world = Level(levelName: levelName, player: player);
-    currLevel = world;
-    cam = CameraComponent.withFixedResolution(world: world, width: 640, height: 320);
-    cam.viewfinder.anchor = Anchor.topLeft;
-
-    addAll([world, cam]);
+    currWorld = world;
+    cam.world = world;
+    add(world);
   }
 }
