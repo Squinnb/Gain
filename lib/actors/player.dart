@@ -55,9 +55,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
     _loadAllAnimations();
-    add(RectangleHitbox(position: Vector2(3, 2), size: Vector2(26, 30), collisionType: CollisionType.active));
+    add(RectangleHitbox(position: Vector2(1, 1), size: Vector2(24, 28), collisionType: CollisionType.active)); //
     return super.onLoad();
   }
 
@@ -165,17 +164,19 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   SpriteAnimation _spriteAnimation(String state, int amount) {
     String cacheUrl = "Marvington/Marv $state.png";
-    double txtSz = 32;
+    double txtSzX = 26;
+    double txtSzY = 29;
     if (state == "Disappearing" || state == "Appearing") {
       cacheUrl = "Marvington/$state (96x96).png";
-      txtSz = 96;
+      txtSzX = 96;
+      txtSzY = 96;
     }
     return SpriteAnimation.fromFrameData(
       game.images.fromCache(cacheUrl),
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
-        textureSize: Vector2.all(txtSz),
+        textureSize: Vector2(txtSzX, txtSzY),
       ),
     );
   }
