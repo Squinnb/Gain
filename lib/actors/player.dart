@@ -33,7 +33,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double xDir = 0.0;
   double _moveSpeed = 130;
   double _gravity = 11;
-  double _jumpForce = 280;
+  double _jumpForce = 320;
   double _terminalYVelocity = 275;
   double fixedDeltaTime = 1 / 60;
   double accumulatedTime = 0;

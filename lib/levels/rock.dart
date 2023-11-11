@@ -26,7 +26,7 @@ class Rock extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCall
   SpriteAnimation _spriteAnimation({String name = "Rock", int amount = 1}) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Terrain/$name.png"),
-      SpriteAnimationData.sequenced(amount: amount, stepTime: 0.05, textureSize: Vector2.all(16)),
+      SpriteAnimationData.sequenced(amount: amount, stepTime: 0.008, textureSize: Vector2.all(16)),
     );
   }
 

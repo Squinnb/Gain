@@ -47,7 +47,7 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
     super.onCollisionStart(intersectionPoints, other);
   }
 
-  SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1, double ssize = 8}) {
+  SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1, double ssize = 10}) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Bullet/$state.png"),
       SpriteAnimationData.sequenced(
