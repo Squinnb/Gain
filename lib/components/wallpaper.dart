@@ -15,7 +15,6 @@ class WallPaper extends ParallaxComponent<Gain> with HasGameRef<Gain> {
     size = Vector2.all(64);
     parallax =
         await gameRef.loadParallax([ParallaxImageData("Background/$color.png")], baseVelocity: Vector2(0, 0), repeat: ImageRepeat.repeat, fill: LayerFill.none);
-
     return super.onLoad();
   }
 }

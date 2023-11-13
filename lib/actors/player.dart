@@ -166,10 +166,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     String cacheUrl = "Marvington/Marv $state.png";
     double txtSzX = 26;
     double txtSzY = 29;
-    if (state == "Disappearing" || state == "Appearing") {
-      cacheUrl = "Marvington/$state (96x96).png";
-      txtSzX = 96;
-      txtSzY = 96;
+    if (state == "Disappear" || state == "Appear") {
+      cacheUrl = "Marvington/Marv $state.png";
+      txtSzX = 47;
+      txtSzY = 47;
     }
     return SpriteAnimation.fromFrameData(
       game.images.fromCache(cacheUrl),
@@ -188,8 +188,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     SpriteAnimation fallAnime = _spriteAnimation("Fall", 1);
     SpriteAnimation enteredAnime = _spriteAnimation("Turned Away", 1);
     SpriteAnimation enterAnime = _spriteAnimation("Enter", 4)..loop = false;
-    SpriteAnimation disappearAnime = _spriteAnimation("Disappearing", 7)..loop = false;
-    SpriteAnimation appearAnime = _spriteAnimation("Appearing", 7)..loop = false;
+    SpriteAnimation disappearAnime = _spriteAnimation("Disappear", 6)..loop = false;
+    SpriteAnimation appearAnime = _spriteAnimation("Appear", 6)..loop = false;
     SpriteAnimation hitAnime = _spriteAnimation("Hit", 4)..loop = false;
     animations = {
       PlayerState.idle: idleAnime,

@@ -10,20 +10,20 @@
     "fileStates": {
         "Blue World Four.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
-            "scale": 1.0982,
+            "scale": 0.3822,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1074.9408122382079,
-                "y": 400.65561828446545
+                "x": 995.5520669806384,
+                "y": 287.8074306645734
             }
         },
         "Blue World One.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 1.4234,
             "selectedLayer": 1,
@@ -34,8 +34,8 @@
         },
         "Blue World Three.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 0.8978,
             "selectedLayer": 1,
@@ -46,11 +46,11 @@
         },
         "Blue World Two.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 1.0772,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 320.73895284069806,
                 "y": 160.60155959896028
