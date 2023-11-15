@@ -124,18 +124,11 @@
     <property name="offPositive" type="float" value="2"/>
    </properties>
   </object>
-  <object id="228" type="Radish" x="544" y="80" width="32" height="32">
+  <object id="228" type="Blob" x="544" y="80" width="32" height="32">
    <properties>
     <property name="isVertical" type="bool" value="false"/>
     <property name="offNegative" type="float" value="6"/>
     <property name="offPositive" type="float" value="7"/>
-   </properties>
-  </object>
-  <object id="229" type="Radish" x="544" y="416" width="32" height="32">
-   <properties>
-    <property name="isVertical" type="bool" value="false"/>
-    <property name="offNegative" type="float" value="1"/>
-    <property name="offPositive" type="float" value="3"/>
    </properties>
   </object>
   <object id="230" type="Moon" x="528" y="288" width="32" height="32">

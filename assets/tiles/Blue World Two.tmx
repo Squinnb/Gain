@@ -56,7 +56,7 @@
  </objectgroup>
  <objectgroup id="2" name="SpawnPoints">
   <object id="1" name="Player" type="Player" x="80" y="160" width="32" height="32"/>
-  <object id="2" name="Cherries" type="Fruit" x="544" y="160" width="32" height="32"/>
+  <object id="2" name="Shitake" type="Shitake" x="544" y="160" width="32" height="32"/>
   <object id="4" type="Moon" x="496" y="144" width="32" height="32">
    <properties>
     <property name="isVertical" type="bool" value="true"/>
@@ -70,20 +70,20 @@
     <property name="offPositive" type="float" value="4"/>
    </properties>
   </object>
-  <object id="8" type="Radish" x="448" y="224" width="32" height="32">
+  <object id="8" type="Blob" x="448" y="224" width="32" height="32">
    <properties>
     <property name="isVertical" type="bool" value="false"/>
     <property name="offNegative" type="float" value="11"/>
     <property name="offPositive" type="float" value="0"/>
    </properties>
   </object>
-  <object id="9" name="Cherries" type="Fruit" x="544" y="192" width="32" height="32"/>
-  <object id="10" name="Cherries" type="Fruit" x="544" y="224" width="32" height="32"/>
-  <object id="12" name="Cherries" type="Fruit" x="496" y="224" width="32" height="32"/>
-  <object id="13" name="Cherries" type="Fruit" x="544" y="80" width="32" height="32"/>
-  <object id="14" name="Cherries" type="Fruit" x="0" y="96" width="32" height="32"/>
-  <object id="15" name="Cherries" type="Fruit" x="16" y="32" width="32" height="32"/>
-  <object id="16" name="Cherries" type="Fruit" x="80" y="16" width="32" height="32"/>
+  <object id="9" name="Shitake" type="Shitake" x="544" y="192" width="32" height="32"/>
+  <object id="10" name="Shitake" type="Shitake" x="544" y="224" width="32" height="32"/>
+  <object id="12" name="Shitake" type="Shitake" x="496" y="224" width="32" height="32"/>
+  <object id="13" name="Shitake" type="Shitake" x="544" y="80" width="32" height="32"/>
+  <object id="14" name="Shitake" type="Shitake" x="0" y="96" width="32" height="32"/>
+  <object id="15" name="Shitake" type="Shitake" x="16" y="32" width="32" height="32"/>
+  <object id="16" name="Shitake" type="Shitake" x="80" y="16" width="32" height="32"/>
   <object id="47" type="Door" x="592" y="128" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="false"/>

@@ -4,7 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:marvington_game/enemies/bird.dart';
-import 'package:marvington_game/enemies/radish.dart';
+import 'package:marvington_game/enemies/blob.dart';
 import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/platform.dart';
 
@@ -48,7 +48,7 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
     if (other is Bird) {
       other.die();
       _explode();
-    } else if (other is Radish) {
+    } else if (other is Blob) {
       other.die();
       _explode();
     } else if (other is Platform) {

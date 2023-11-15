@@ -5,17 +5,16 @@ import 'package:marvington_game/components/door.dart';
 import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/rock.dart';
 import '/actors/player.dart';
-import '/enemies/bird.dart';
-import '/enemies/radish.dart';
+import '../enemies/blob.dart';
 import '/components/wallpaper.dart';
 import '/components/checkpoint.dart';
-import '/components/fruit.dart';
+import '../components/shitake.dart';
 import '../traps/moon.dart';
 import '/levels/platform.dart';
 import 'package:flame/experimental.dart';
 import '/traps/fire.dart';
 
-Set<String> enemies = {"Bird", "Radish"};
+Set<String> enemies = {"Bird", "Blob"};
 Set<String> traps = {"Moon", "Fire"};
 
 class Level extends World with HasGameRef<Gain> {
@@ -47,8 +46,8 @@ class Level extends World with HasGameRef<Gain> {
           player.position = Vector2(spawnPoint.x, spawnPoint.y);
           player.spawnLocation = Vector2(spawnPoint.x, spawnPoint.y);
           add(player);
-        } else if (spawnPoint.class_ == "Fruit") {
-          Fruit f = Fruit(fruitType: spawnPoint.name, position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
+        } else if (spawnPoint.class_ == "Shitake") {
+          Shitake f = Shitake(position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
           add(f);
         } else if (traps.contains(spawnPoint.class_)) {
           _spawnTraps(spawnPoint);
@@ -67,17 +66,19 @@ class Level extends World with HasGameRef<Gain> {
   }
 
   void _spawnEnemies(TiledObject spawnPoint) {
-    if (spawnPoint.class_ == "Radish") {
-      double minusOffset = spawnPoint.properties.getValue("offNegative");
-      double plusOffset = spawnPoint.properties.getValue("offPositive");
-      Radish r = Radish(
+    double minusOffset = spawnPoint.properties.getValue("offNegative");
+    double plusOffset = spawnPoint.properties.getValue("offPositive");
+    if (spawnPoint.class_ == "Blob") {
+      Blob r = Blob(
           minusOffset: minusOffset, plusOffset: plusOffset, position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
       add(r);
     } else if (spawnPoint.class_ == "Bird") {
-      double minusOffset = spawnPoint.properties.getValue("offNegative");
-      double plusOffset = spawnPoint.properties.getValue("offPositive");
-      Bird b = Bird(
-          minusOffset: minusOffset, plusOffset: plusOffset, position: Vector2(spawnPoint.x, spawnPoint.y), size: Vector2(spawnPoint.width, spawnPoint.height));
+      Blob b = Blob(
+          minusOffset: minusOffset,
+          plusOffset: plusOffset,
+          position: Vector2(spawnPoint.x, spawnPoint.y),
+          size: Vector2(spawnPoint.width, spawnPoint.height),
+          flying: true);
       add(b);
     }
   }

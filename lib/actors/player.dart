@@ -12,8 +12,8 @@ import 'package:marvington_game/components/door.dart';
 import 'package:marvington_game/levels/rock.dart';
 import '/enemies/bird.dart';
 import '/components/checkpoint.dart';
-import '/components/fruit.dart';
-import '/enemies/radish.dart';
+import '../components/shitake.dart';
+import '../enemies/blob.dart';
 import '../traps/moon.dart';
 import '/game.dart';
 import '/levels/platform.dart';
@@ -123,7 +123,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Fruit) {
+    if (other is Shitake) {
       other.collect();
     } else if (other is Moon) {
       _die();
@@ -132,9 +132,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     } else if (other is Checkpoint) {
       // _beatLevel();
       FlameAudio.play("synth3.wav", volume: game.volume);
-    } else if (other is Radish) {
-      bool radishStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
-      if (radishStomp) {
+    } else if (other is Blob) {
+      bool stomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
+      if (stomp) {
         other.die();
         velocity.y = -_jumpForce;
       } else {
