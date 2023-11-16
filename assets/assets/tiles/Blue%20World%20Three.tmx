@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="32">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="33">
  <tileset firstgid="1" source="Marvington Terrain.tsx"/>
  <layer id="1" name="Background" width="40" height="20">
   <properties>
    <property name="BackgroundColor" value="Green"/>
+   <property name="height" type="float" value="320"/>
+   <property name="width" type="float" value="640"/>
   </properties>
   <data encoding="csv">
 47,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,47,
@@ -30,7 +32,7 @@
  </layer>
  <objectgroup id="3" name="SpawnPoints">
   <object id="10" name="Player" type="Player" x="32" y="96" width="32" height="32"/>
-  <object id="11" name="Cherries" type="Fruit" x="528" y="176" width="32" height="32"/>
+  <object id="11" name="Shitake" type="Shitake" x="528" y="176" width="32" height="32"/>
   <object id="12" type="Moon" x="464" y="176" width="32" height="32">
    <properties>
     <property name="isVertical" type="bool" value="true"/>
@@ -38,19 +40,24 @@
     <property name="offPositive" type="float" value="3"/>
    </properties>
   </object>
-  <object id="13" type="Checkpoint" x="560" y="144" width="64" height="64"/>
   <object id="14" type="Bird" x="496" y="96" width="32" height="32">
    <properties>
     <property name="offNegative" type="float" value="18"/>
     <property name="offPositive" type="float" value="1"/>
    </properties>
   </object>
-  <object id="20" name="Cherries" type="Fruit" x="320" y="112" width="32" height="32"/>
-  <object id="21" name="Cherries" type="Fruit" x="112" y="144" width="32" height="32"/>
-  <object id="22" name="Cherries" type="Fruit" x="160" y="112" width="32" height="32"/>
+  <object id="20" name="Shitake" type="Shitake" x="320" y="112" width="32" height="32"/>
+  <object id="21" name="Shitake" type="Shitake" x="112" y="144" width="32" height="32"/>
+  <object id="22" name="Shitake" type="Shitake" x="160" y="112" width="32" height="32"/>
   <object id="26" type="Fire" x="400" y="144" width="16" height="32"/>
   <object id="27" type="Fire" x="416" y="144" width="16" height="32"/>
   <object id="28" type="Fire" x="432" y="144" width="16" height="32"/>
+  <object id="32" name="Door" type="Door" x="576" y="176" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="false"/>
+    <property name="leadsTo" value="Blue World Four"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="Collisions">
   <object id="1" x="16" y="160" width="48" height="160"/>
