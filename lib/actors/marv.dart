@@ -10,7 +10,6 @@ import 'package:flutter/src/services/raw_keyboard.dart';
 import 'package:marvington_game/actors/bullet.dart';
 import 'package:marvington_game/components/door.dart';
 import 'package:marvington_game/levels/rock.dart';
-import '/enemies/bird.dart';
 import '/components/checkpoint.dart';
 import '../components/shitake.dart';
 import '../enemies/blob.dart';
@@ -21,9 +20,9 @@ import '/traps/fire.dart';
 
 enum PlayerState { appear, idle, running, jumping, falling, disappear, hit, entering, entered }
 
-class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
+class Marv extends SpriteAnimationGroupComponent with HasGameRef<Gain>, KeyboardHandler, CollisionCallbacks {
   String character;
-  Player({
+  Marv({
     super.position,
     super.anchor = Anchor.center,
     this.character = "Marv",
@@ -37,6 +36,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
   double _terminalYVelocity = 275;
   double fixedDeltaTime = 1 / 60;
   double accumulatedTime = 0;
+  int health = 3;
 
   static const Duration _dur = Duration(milliseconds: 350);
 
@@ -138,15 +138,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
         other.die();
         velocity.y = -_jumpForce;
       } else {
-        _die();
-      }
-    } else if (other is Bird) {
-      bool birdStomp = (velocity.y > 0 && other.wasJumpedOn(position.y + (height / 2)));
-      if (birdStomp) {
-        other.die();
-        velocity.y = -_jumpForce - 10;
-      } else {
-        _die();
+        if (!other.dead) _die();
       }
     }
     super.onCollisionStart(intersectionPoints, other);
@@ -216,6 +208,16 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Gain>, Keyboa
     if (velocity.y > 0 && !_isOnGround) playerState = PlayerState.falling;
     if (velocity.y < 0 && !_isOnGround) playerState = PlayerState.jumping;
     current = playerState;
+  }
+
+  void _hit() async {
+    print("Hello... $health");
+    health--;
+    current = PlayerState.hit;
+    await animationTicker?.completed;
+    if (health < 1) {
+      _die();
+    }
   }
 
   void _die() async {

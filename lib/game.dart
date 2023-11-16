@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import '/actors/player.dart';
+import 'actors/marv.dart';
 import '/levels/level.dart';
 
 class Gain extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection {
-  Player player = Player();
+  Marv player = Marv();
   Set<String> levelNames = {"Blue World One", "Blue World Two", "Blue World Three", "Blue World Four"};
   double volume = 0.2;
   bool playSoundEffect = true;

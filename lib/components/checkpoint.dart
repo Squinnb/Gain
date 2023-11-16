@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import '/actors/player.dart';
+import '../actors/marv.dart';
 import '/game.dart';
 
 class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCallbacks {
@@ -26,7 +26,7 @@ class Checkpoint extends SpriteAnimationComponent with HasGameRef<Gain>, Collisi
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) async {
-    if (other is Player) {
+    if (other is Marv) {
       _raiseFlag();
     }
     super.onCollisionStart(intersectionPoints, other);

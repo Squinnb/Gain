@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:marvington_game/enemies/bird.dart';
+
 import 'package:marvington_game/enemies/blob.dart';
 import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/platform.dart';
@@ -45,11 +45,7 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Bird) {
-      other.die();
-      _explode();
-    } else if (other is Blob) {
-      other.die();
+    if (other is Blob) {
       _explode();
     } else if (other is Platform) {
       FlameAudio.play("explosion.wav", volume: game.volume);

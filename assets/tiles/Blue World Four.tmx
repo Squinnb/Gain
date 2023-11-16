@@ -124,7 +124,7 @@
     <property name="offPositive" type="float" value="2"/>
    </properties>
   </object>
-  <object id="228" type="Blob" x="544" y="80" width="32" height="32">
+  <object id="228" type="Bird" x="544" y="80" width="32" height="32">
    <properties>
     <property name="isVertical" type="bool" value="false"/>
     <property name="offNegative" type="float" value="6"/>

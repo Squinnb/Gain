@@ -4,7 +4,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:marvington_game/components/door.dart';
 import 'package:marvington_game/game.dart';
 import 'package:marvington_game/levels/rock.dart';
-import '/actors/player.dart';
+import '../actors/marv.dart';
 import '../enemies/blob.dart';
 import '/components/wallpaper.dart';
 import '/components/checkpoint.dart';
@@ -19,7 +19,7 @@ Set<String> traps = {"Moon", "Fire"};
 
 class Level extends World with HasGameRef<Gain> {
   String levelName;
-  Player player;
+  Marv player;
   Level({required this.levelName, required this.player});
   late TiledComponent level;
 
