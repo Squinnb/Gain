@@ -56,7 +56,7 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
   }
 
   SpriteAnimation _createSpriteAnimation({String state = "Marv Bullet", int amount = 1, double ssize = 10}) {
-    if (isVert) state = "Marv Bullet Vert";
+    if (isVert && state == "Marv Bullet") state = "Marv Bullet Vert";
     return SpriteAnimation.fromFrameData(
       game.images.fromCache("Bullet/$state.png"),
       SpriteAnimationData.sequenced(
