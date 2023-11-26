@@ -51,7 +51,6 @@ class Bullet extends SpriteAnimationComponent with HasGameRef<Gain>, CollisionCa
       FlameAudio.play("explosion.wav", volume: game.volume);
       _explode();
     }
-
     super.onCollisionStart(intersectionPoints, other);
   }
 
