@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="231">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="248">
  <tileset firstgid="1" source="Marvington Terrain.tsx"/>
  <layer id="1" name="Background" width="80" height="40">
   <properties>
@@ -43,9 +43,9 @@
 55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,30,31,32,0,0,0,0,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,
 55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,0,0,0,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,
 55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,
-55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,
-55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,
-55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,
+55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,55,
+55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,19,20,55,
+55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,0,0,0,0,0,0,0,0,0,0,0,58,58,58,58,0,0,0,0,0,0,0,0,0,0,58,58,58,58,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,27,28,63,
 63,30,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,32
 </data>
  </layer>
@@ -83,9 +83,8 @@
   <object id="205" type="Rock" x="48" y="96" width="16" height="16"/>
   <object id="206" type="Rock" x="32" y="96" width="16" height="16"/>
   <object id="207" type="Rock" x="16" y="96" width="16" height="16"/>
-  <object id="208" type="Rock" x="16" y="112" width="16" height="16"/>
-  <object id="209" type="Rock" x="16" y="128" width="16" height="16"/>
-  <object id="210" type="Rock" x="32" y="112" width="16" height="16"/>
+  <object id="208" type="Rock" x="112" y="128" width="16" height="16"/>
+  <object id="210" type="Rock" x="128" y="144" width="16" height="16"/>
   <object id="211" type="Rock" x="128" y="112" width="16" height="16"/>
   <object id="212" type="Rock" x="128" y="128" width="16" height="16"/>
   <object id="213" type="Rock" x="112" y="112" width="16" height="16"/>
@@ -101,6 +100,11 @@
   <object id="224" x="496" y="368" width="80" height="16"/>
   <object id="225" x="528" y="448" width="80" height="16"/>
   <object id="226" x="496" y="528" width="48" height="16"/>
+  <object id="241" x="1216" y="576" width="48" height="48"/>
+  <object id="243" type="Lethal" x="896" y="608" width="80" height="16"/>
+  <object id="244" type="Lethal" x="672" y="608" width="64" height="16"/>
+  <object id="246" x="576" y="432" width="32" height="16"/>
+  <object id="247" x="496" y="512" width="32" height="16"/>
  </objectgroup>
  <objectgroup id="3" name="SpawnPoints">
   <object id="19" name="Player" type="Player" x="1120" y="48" width="32" height="32"/>
@@ -111,7 +115,7 @@
     <property name="offPositive" type="float" value="6"/>
    </properties>
   </object>
-  <object id="214" name="Door" type="Door" x="1088" y="592" width="32" height="32">
+  <object id="214" name="Door" type="Door" x="1216" y="544" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="false"/>
     <property name="leadsTo" value="Blue World One"/>
@@ -136,6 +140,33 @@
     <property name="isVertical" type="bool" value="false"/>
     <property name="offNegative" type="float" value="2"/>
     <property name="offPositive" type="float" value="3"/>
+   </properties>
+  </object>
+  <object id="231" type="Fire" x="576" y="416" width="16" height="32"/>
+  <object id="232" type="Fire" x="592" y="416" width="16" height="32"/>
+  <object id="233" type="Fire" x="496" y="496" width="16" height="32"/>
+  <object id="234" type="Fire" x="512" y="496" width="16" height="32"/>
+  <object id="236" x="576" y="432" width="32" height="16"/>
+  <object id="237" x="496" y="512" width="32" height="16"/>
+  <object id="239" type="Bird" x="768" y="576" width="32" height="32">
+   <properties>
+    <property name="isVertical" type="bool" value="false"/>
+    <property name="offNegative" type="float" value="6"/>
+    <property name="offPositive" type="float" value="7"/>
+   </properties>
+  </object>
+  <object id="240" type="Bird" x="928" y="560" width="32" height="32">
+   <properties>
+    <property name="isVertical" type="bool" value="false"/>
+    <property name="offNegative" type="float" value="6"/>
+    <property name="offPositive" type="float" value="7"/>
+   </properties>
+  </object>
+  <object id="242" type="Bird" x="1072" y="576" width="32" height="32">
+   <properties>
+    <property name="isVertical" type="bool" value="false"/>
+    <property name="offNegative" type="float" value="6"/>
+    <property name="offPositive" type="float" value="7"/>
    </properties>
   </object>
  </objectgroup>
